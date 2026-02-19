@@ -1,26 +1,387 @@
 @import "tailwindcss";
 
+@theme {
+  /* Cyan/Teal accent color palette */
+  --color-accent-50: #ecfeff;
+  --color-accent-100: #cffafe;
+  --color-accent-200: #a5f3fc;
+  --color-accent-300: #67e8f9;
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+  --color-accent-600: #0891b2;
+  --color-accent-700: #0e7490;
+  --color-accent-800: #155e75;
+  --color-accent-900: #164e63;
+}
+
+/* Light Theme - Modern Teal & Fresh */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Background Colors - Soft, Cool Whites */
+  --background: #f8fafc;
+  /* Slate-50 - Main background */
+  --background-soft: #f1f5f9;
+  /* Slate-100 - Subtle sections */
+  --background-elevated: #ffffff;
+  /* Pure white - Cards & elevated surfaces */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Foreground Colors - Deep, Readable Text */
+  --foreground: #0f172a;
+  /* Slate-900 - Primary text */
+  --foreground-muted: #475569;
+  /* Slate-600 - Secondary text */
+  --foreground-subtle: #94a3b8;
+  /* Slate-400 - Tertiary text */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Border Colors */
+  --border: #e2e8f0;
+  /* Slate-200 - Subtle borders */
+  --border-strong: #cbd5e1;
+  /* Slate-300 - Stronger borders */
+
+  /* Primary Teal Colors */
+  --accent: #14b8a6;
+  /* Teal-500 - Primary accent */
+  --accent-hover: #0d9488;
+  /* Teal-600 - Hover state */
+  --accent-light: #5eead4;
+  /* Teal-300 - Light accent */
+  --accent-dark: #0f766e;
+  /* Teal-700 - Dark accent */
+
+  /* Secondary Accent Colors */
+  --accent-orange: #f97316;
+  /* Orange-500 - Highlights */
+  --accent-purple: #a855f7;
+  /* Purple-500 - Special elements */
+  --accent-pink: #ec4899;
+  /* Pink-500 - Vibrant touches */
+
+  /* Gradient Definitions */
+  --gradient-primary: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+  --gradient-vibrant: linear-gradient(135deg, #14b8a6 0%, #a855f7 50%, #ec4899 100%);
+  --gradient-subtle: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
+  --gradient-warm: linear-gradient(135deg, #14b8a6 0%, #f97316 100%);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-teal: 0 10px 30px -5px rgba(20, 184, 166, 0.3);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Custom Utilities */
+@utility gradient-primary {
+  background: var(--gradient-primary);
+}
+
+@utility gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility gradient-vibrant {
+  background: var(--gradient-vibrant);
+}
+
+@utility glass-effect {
+  @apply bg-white/60 backdrop-blur-md border border-white/40 shadow-lg;
+}
+
+/* Code syntax highlighting */
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+.hljs {
+  color: #c9d1d9;
+  background: #0d1117;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  color: #ff7b72;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  color: #d2a8ff;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: #79c0ff;
+}
+
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+  color: #a5d6ff;
+}
+
+.hljs-built_in,
+.hljs-symbol {
+  color: #ffa657;
+}
+
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  color: #8b949e;
+}
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  color: #7ee787;
+}
+
+.hljs-subst {
+  color: #c9d1d9;
+}
+
+.hljs-section {
+  color: #1f6feb;
+  font-weight: bold;
+}
+
+.hljs-bullet {
+  color: #f2cc60;
+}
+
+.hljs-emphasis {
+  color: #c9d1d9;
+  font-style: italic;
+}
+
+.hljs-strong {
+  color: #c9d1d9;
+  font-weight: bold;
+}
+
+.hljs-addition {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.hljs-deletion {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+/* Hide scrollbar for seamless look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   Skill Badges with Icons & Animations
+   ============================================ */
+
+/* ============================================
+   Skill Badges with Icons & Animations
+   ============================================ */
+
+.skill-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 1rem;
+  background: var(--background-elevated);
+  border: 1.5px solid var(--border);
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--foreground-muted);
+  cursor: default;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.skill-badge:hover {
+  border-color: var(--skill-color, var(--accent));
+  transform: translateY(-3px);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 25px rgba(var(--skill-color-rgb, 20, 184, 166), 0.25);
+  background: linear-gradient(135deg, var(--background-elevated) 0%, rgba(var(--skill-color-rgb, 20, 184, 166), 0.05) 100%);
+}
+
+.skill-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.skill-badge:hover .skill-icon {
+  transform: scale(1.2) rotate(5deg);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+}
+
+.skill-name {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.skill-badge:hover .skill-name {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+/* Shimmer Effect */
+.skill-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(20, 184, 166, 0.15) 50%,
+      transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.skill-badge:hover .skill-shimmer {
+  opacity: 1;
+  animation: shimmer-sweep 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+/* Glow effect removed to fix double border issue */
+/* .skill-badge::before { ... } */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .skill-badge {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+  }
+
+  .skill-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
 }

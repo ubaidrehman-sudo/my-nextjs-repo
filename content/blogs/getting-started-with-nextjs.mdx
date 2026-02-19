@@ -1,0 +1,61 @@
+---
+title: "Getting Started with Next.js 14"
+date: "2024-01-15"
+excerpt: "Learn how to build modern web applications with Next.js 14, featuring the new App Router and Server Components."
+tags: ["nextjs", "react", "typescript"]
+image: "/images/blog/secondary.png"
+author: "John Doe"
+category: "Frontend Development"
+priority: 10
+---
+
+# Getting Started with Next.js 14
+
+Next.js 14 brings powerful new features that make building web applications easier and more performant than ever before.
+
+## Why Next.js?
+
+Next.js is a React framework that provides:
+
+- **Server-side rendering** for better SEO
+- **Static site generation** for optimal performance
+- **API routes** for backend functionality
+- **File-based routing** for intuitive navigation
+
+## Setting Up Your First Project
+
+Here's how to create a new Next.js project:
+
+```bash
+npx create-next-app@latest my-app
+cd my-app
+npm run dev
+```
+
+## Server Components
+
+One of the most exciting features in Next.js 14 is Server Components:
+
+```tsx
+// This component runs on the server
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const post = await getPost(params.slug);
+  
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <div>{post.content}</div>
+    </article>
+  );
+}
+```
+
+## Benefits of Server Components
+
+1. **Reduced bundle size** - Server components don't ship JavaScript to the client
+2. **Direct database access** - Fetch data directly without API routes
+3. **Better performance** - Faster initial page loads
+
+## Conclusion
+
+Next.js 14 is a game-changer for web development. Start building your next project with it today!
