@@ -8,13 +8,14 @@ interface EducationSectionProps {
 
 export default function EducationSection({ education }: EducationSectionProps) {
     return (
-        <section className="py-20 border-b border-[var(--border)]">
+        <section className="py-24 mb-12 bg-[var(--bg-section-muted)]">
             <div className="max-w-7xl mx-auto px-4">
-                <h2 className="text-3xl font-serif font-bold text-[var(--foreground)] mb-10">Education & Certifications</h2>
+                <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-4">Education & Certifications</h2>
+                <p className="text-[var(--text-secondary)] mb-12">Academic background and credentials</p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {education.map((edu) => (
-                        <div key={edu.id} className="p-6 bg-[var(--background-soft)] border border-[var(--border)] rounded-lg hover:border-[var(--accent)] transition-colors">
+                        <div key={edu.id} className="p-6 bg-[var(--bg-section)] border border-[var(--border-muted)] shadow-[var(--shadow-surface)] rounded-lg hover:border-[var(--accent)] hover:shadow-[var(--shadow-hover)] hover:-translate-y-0.5 transition-base">
                             <h3 className="text-lg font-bold text-[var(--foreground)] mb-1">{edu.degree}</h3>
                             <p className="text-[var(--accent)] mb-2">{edu.institution}</p>
                             <p className="text-sm text-[var(--foreground-muted)] font-mono mb-4">

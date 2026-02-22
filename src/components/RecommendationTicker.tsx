@@ -1,56 +1,88 @@
 'use client';
 
 import { Review } from '@/lib/types';
+import SectionHeadingWithBar from './SectionHeadingWithBar';
 
 interface RecommendationTickerProps {
-    reviews: Review[];
+  reviews: Review[];
 }
 
 export default function RecommendationTicker({ reviews }: RecommendationTickerProps) {
-    if (!reviews || reviews.length === 0) return null;
+  if (!reviews || reviews.length === 0) return null;
 
-    // Duplicate content for seamless loop
-    const displayReviews = [...reviews, ...reviews, ...reviews];
+  const useGrid = reviews.length < 4;
 
-    return (
-        <section className="py-20 border-t border-[var(--border)] overflow-hidden bg-[var(--background-soft)]">
-            <div className="max-w-7xl mx-auto px-4 mb-10">
-                <h2 className="text-3xl font-bold text-[var(--foreground)] text-center font-serif italic">
-                    Kind Words
-                </h2>
+  return (
+    <section className="py-24 mb-12 bg-[var(--bg-section)]">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* 6.1: Left heading, subtext - z-10 + bg so it stays visible when cards hover/lift */}
+        <div className="mb-12 relative z-10 bg-[var(--bg-section)]">
+          <SectionHeadingWithBar
+            title="Kind Words"
+            subtitle="What colleagues and clients say about working together"
+          />
+        </div>
+
+        {/* 6.3: Grid when <5, otherwise calm horizontal scroll */}
+        {useGrid ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+            {/* 6.4: Optional large quote icon at 3–4% opacity */}
+            <div
+              className="absolute -top-4 -left-2 text-[10rem] text-[var(--accent)] opacity-[0.035] pointer-events-none select-none font-serif"
+              aria-hidden
+            >
+              "
             </div>
-
-            <div className="relative w-full flex overflow-hidden">
-                <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--background-soft)] to-transparent z-10 pointer-events-none" />
-                <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--background-soft)] to-transparent z-10 pointer-events-none" />
-
-                <div className="flex gap-8 animate-marquee w-max py-4 hover:[animation-play-state:paused] cursor-default">
-                    {displayReviews.map((review, idx) => (
-                        <div
-                            key={`${review.id}-${idx}`}
-                            className="bg-[var(--background-elevated)] border border-[var(--border)] p-8 rounded-xl min-w-[350px] max-w-[400px] flex flex-col justify-between hover:border-[var(--accent)] transition-colors group"
-                        >
-                            <p className="text-[var(--foreground-muted)] mb-6 leading-relaxed italic relative">
-                                <span className="absolute -top-4 -left-2 text-4xl text-[var(--accent)] opacity-20">"</span>
-                                {review.content}
-                            </p>
-                            <div className="flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-full bg-[var(--accent)] flex items-center justify-center text-white font-bold text-lg shadow-md shadow-[var(--accent)]/20">
-                                    {review.name.charAt(0)}
-                                </div>
-                                <div>
-                                    <p className="text-[var(--foreground)] font-bold">{review.name}</p>
-                                    <p className="text-sm">
-                                        <span className="text-[var(--accent)] font-medium">{review.role}</span>
-                                        <span className="text-[var(--foreground-subtle)] mx-1">@</span>
-                                        <span className="text-[var(--foreground-muted)] font-medium">{review.company}</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+            {reviews.map((review) => (
+              <div
+                key={review.id}
+                className="relative bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl p-8 shadow-[var(--shadow-surface)] transition-base flex flex-col justify-between hover:border-[var(--accent)] hover:shadow-[var(--shadow-hover)] hover:-translate-y-0.5 group min-h-[200px]"
+              >
+                <p className="text-[var(--text-secondary)] leading-relaxed italic mb-6 relative z-10">
+                  &ldquo;{review.content}&rdquo;
+                </p>
+                <div className="flex items-center gap-4 mt-auto pt-4 border-t border-[var(--border-muted)]">
+                  <div className="w-10 h-10 rounded-full bg-[var(--bg-section-muted)] border border-[var(--border-muted)] flex items-center justify-center font-bold text-[var(--text-primary)] group-hover:border-[var(--accent)] transition-base flex-shrink-0">
+                    {review.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-bold text-[var(--text-primary)]">{review.name}</p>
+                    <p className="text-sm text-[var(--text-muted)]">
+                      {review.role} · {review.company}
+                    </p>
+                  </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="relative w-full overflow-hidden pt-2 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+            <div className="flex gap-6 pb-4 animate-marquee w-max">
+              {[...reviews, ...reviews].map((review, index) => (
+                <div
+                  key={`${review.id}-${index}`}
+                  className="flex-shrink-0 w-[min(350px,85vw)] bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl p-8 shadow-[var(--shadow-surface)] transition-base flex flex-col justify-between hover:border-[var(--accent)] hover:shadow-[var(--shadow-hover)] hover:-translate-y-0.5 group min-h-[200px]"
+                >
+                  <p className="text-[var(--text-secondary)] leading-relaxed italic mb-6">
+                    &ldquo;{review.content}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-4 mt-auto pt-4 border-t border-[var(--border-muted)]">
+                    <div className="w-10 h-10 rounded-full bg-[var(--bg-section-muted)] border border-[var(--border-muted)] flex items-center justify-center font-bold text-[var(--text-primary)] flex-shrink-0 group-hover:border-[var(--accent)] transition-base">
+                      {review.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="font-bold text-[var(--text-primary)]">{review.name}</p>
+                      <p className="text-sm text-[var(--text-muted)]">
+                        {review.role} · {review.company}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-        </section>
-    );
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }

@@ -56,16 +56,16 @@
 
 *After these: Hero is fully refined. Tangible "first impression" change.*
 
-- [ ] **2.1** Hero layout: two-column (40% left / 60% right); stack vertically on mobile
-- [ ] **2.2** Hero min-height: 100vh, flex, align-items center
-- [ ] **2.3** Replace decorative orbs with soft radial teal glow (opacity max 5%); remove dotted/animated backgrounds
-- [ ] **2.4** Name typography: `clamp(2.5rem, 5vw, 4rem)`, weight 700/800
-- [ ] **2.5** Title line: static text (Option A) or subtle slow blink (Option B); no typing animation
-- [ ] **2.6** Update bio/positioning statement to architect tone (max 2 lines)
-- [ ] **2.7** Primary button: filled teal, hover darker; Secondary: outline, hover teal border + 3% tint
-- [ ] **2.8** Image card: base = muted border + L1 shadow; hover = translateY(-2px), teal border, L2 shadow
-- [ ] **2.9** Hero spacing: Name→12px→Title, Title→16px→Statement, Statement→24px→Buttons; navbar gap = navbarHeight + 24px
-- [ ] **2.10** Micro-interactions: fade-in on load, slight lift only; no parallax, bounce, overshoot
+- [x] **2.1** Hero layout: two-column (40% left / 60% right); stack vertically on mobile
+- [x] **2.2** Hero min-height: 100vh, flex, align-items center
+- [x] **2.3** Replace decorative orbs with soft radial teal glow (opacity max 5%); remove dotted/animated backgrounds
+- [x] **2.4** Name typography: `clamp(2.5rem, 5vw, 4rem)`, weight 700/800
+- [x] **2.5** Title line: static text (Option A) or subtle slow blink (Option B); no typing animation
+- [x] **2.6** Update bio/positioning statement to architect tone (max 2 lines)
+- [x] **2.7** Primary button: filled teal, hover darker; Secondary: outline, hover teal border + 3% tint
+- [x] **2.8** Image card: base = muted border + L1 shadow; hover = translateY(-2px), teal border, L2 shadow
+- [x] **2.9** Hero spacing: Name→12px→Title, Title→16px→Statement, Statement→24px→Buttons; navbar gap = navbarHeight + 24px
+- [x] **2.10** Micro-interactions: fade-in on load, slight lift only; no parallax, bounce, overshoot
 
 ---
 
@@ -73,14 +73,14 @@
 
 *After these: Skills feels structured, neutral, enterprise-ready.*
 
-- [ ] **3.1** Skills section structure: left heading, subtext, skills-grid
-- [ ] **3.2** Remove multi-color category headers (purple, orange, pink, rainbow)
-- [ ] **3.3** Add neutral group headers: Icon + text, border-bottom, no colored backgrounds
-- [ ] **3.4** Skill chips: white bg, muted border, 6px 12px padding; hover: teal border, translateY(-1px), 3% tint
-- [ ] **3.5** No solid teal pills or filled accent backgrounds on chips
-- [ ] **3.6** Grid: 2 columns desktop (3 max), 2 tablet, 1 mobile
-- [ ] **3.7** Copy: architect-style subtext (e.g. "I design and implement production-ready systems...")
-- [ ] **3.8** Micro-interactions: subtle fade-in on scroll, chip border on hover only; no glow, shimmer, animated icons
+- [x] **3.1** Skills section structure: left heading, subtext, skills-grid
+- [x] **3.2** Remove multi-color category headers (purple, orange, pink, rainbow)
+- [x] **3.3** Add neutral group headers: Icon + text, border-bottom, no colored backgrounds
+- [x] **3.4** Skill chips: white bg, muted border, 6px 12px padding; hover: teal border, translateY(-1px), 3% tint
+- [x] **3.5** No solid teal pills or filled accent backgrounds on chips
+- [x] **3.6** Grid: 2 columns desktop (3 max), 2 tablet, 1 mobile
+- [x] **3.7** Copy: architect-style subtext (e.g. "I design and implement production-ready systems...")
+- [x] **3.8** Micro-interactions: subtle fade-in on scroll, chip border on hover only; no glow, shimmer, animated icons
 
 ---
 
@@ -88,16 +88,16 @@
 
 *After these: Projects feel case-study grade.*
 
-- [ ] **4.1** Section layout: heading left, View All button right; py-24, mb-12
-- [ ] **4.2** Grid: 2 columns desktop, large vertical spacing; 1 column tablet
-- [ ] **4.3** Card base: white, muted border, L1 shadow; hover: translateY(-2px), teal border, L2
-- [ ] **4.4** Entire card clickable → detail page; overlay icon buttons → external links (stopPropagation)
-- [ ] **4.5** Image: 16:9 aspect ratio, real screenshots where possible
-- [ ] **4.6** Overlay icon buttons: small, outline, white 90% opacity; hover teal border
-- [ ] **4.7** Title + description: strategic, architectural copy (problem + layer)
-- [ ] **4.8** Tech tags: neutral styling only; no colored category tags
-- [ ] **4.9** CTA: "View Case Study →" not "View Details"
-- [ ] **4.10** Maintain section rhythm (muted bg)
+- [x] **4.1** Section layout: heading left, View All button right; py-24, mb-12
+- [x] **4.2** Grid: 2 columns desktop, large vertical spacing; 1 column tablet
+- [x] **4.3** Card base: white, muted border, L1 shadow; hover: translateY(-2px), teal border, L2
+- [x] **4.4** Entire card clickable → detail page; overlay icon buttons → external links (stopPropagation)
+- [x] **4.5** Image: 16:9 aspect ratio, real screenshots where possible
+- [x] **4.6** Overlay icon buttons: small, outline, white 90% opacity; hover teal border
+- [x] **4.7** Title + description: strategic, architectural copy (problem + layer)
+- [x] **4.8** Tech tags: neutral styling only; no colored category tags
+- [x] **4.9** CTA: "View Case Study →" not "View Details"
+- [x] **4.10** Maintain section rhythm (muted bg)
 
 ---
 
@@ -105,14 +105,14 @@
 
 *After these: Articles feel thought-leadership, not bloggy.*
 
-- [ ] **5.1** Section structure: heading left, button right; same as Featured Work
-- [ ] **5.2** Grid: 3 columns desktop, 2 tablet, 1 mobile
-- [ ] **5.3** Card: same radius, shadow scale, hover lift, border activation as Projects
-- [ ] **5.4** Article card: ImageArea, CardBody (category + reading time, title, summary, CTA)
-- [ ] **5.5** Lighter visual weight than Projects: slightly smaller title, more whitespace
-- [ ] **5.6** Category/metadata: uppercase, letter-spacing, muted; no bright teal badge
-- [ ] **5.7** Summary: 1–2 lines, architect-style; CTA "Read Article →"
-- [ ] **5.8** Section rhythm: white bg (alternate from Featured Work muted)
+- [x] **5.1** Section structure: heading left, button right; same as Featured Work
+- [x] **5.2** Grid: 3 columns desktop, 2 tablet, 1 mobile
+- [x] **5.3** Card: same radius, shadow scale, hover lift, border activation as Projects
+- [x] **5.4** Article card: ImageArea, CardBody (category + reading time, title, summary, CTA)
+- [x] **5.5** Lighter visual weight than Projects: slightly smaller title, more whitespace
+- [x] **5.6** Category/metadata: uppercase, letter-spacing, muted; no bright teal badge
+- [x] **5.7** Summary: 1–2 lines, architect-style; CTA "Read Article →"
+- [x] **5.8** Section rhythm: white bg (alternate from Featured Work muted)
 
 ---
 
@@ -120,13 +120,13 @@
 
 *After these: Full home screen redesigned.*
 
-- [ ] **6.1** Kind Words: left heading, subtext; py-24, mb-12; bg-section-muted
-- [ ] **6.2** Testimonial cards: white, muted border, L1; hover: lift, teal border, L2
-- [ ] **6.3** Replace marquee with grid (if <4) or calm horizontal scroll / slow auto-slide
-- [ ] **6.4** Optional: large quote icon background at 3–4% opacity
-- [ ] **6.5** Footer: slightly darker anchor bg (e.g. #e8eceb); 3–4 columns desktop
-- [ ] **6.6** Footer: name, positioning statement, quick links, social; tone serious
-- [ ] **6.7** Footer links: muted base; hover teal, subtle underline
+- [x] **6.1** Kind Words: left heading, subtext; py-24, mb-12; bg-section-muted
+- [x] **6.2** Testimonial cards: white, muted border, L1; hover: lift, teal border, L2
+- [x] **6.3** Replace marquee with grid (if <4) or calm horizontal scroll / slow auto-slide
+- [x] **6.4** Optional: large quote icon background at 3–4% opacity
+- [x] **6.5** Footer: slightly darker anchor bg (e.g. #e8eceb); 3–4 columns desktop
+- [x] **6.6** Footer: name, positioning statement, quick links, social; tone serious
+- [x] **6.7** Footer links: muted base; hover teal, subtle underline
 
 ---
 

@@ -4,7 +4,7 @@ import { AboutMe, Project, Skill, Experience, Education, Review, Tool } from './
 export const aboutMe: AboutMe = {
     name: 'John Doe',
     title: 'Full Stack Developer',
-    bio: 'Passionate developer with expertise in building modern web applications. I love creating elegant solutions to complex problems and continuously learning new technologies.',
+    bio: 'I architect and implement production-ready systems—from scalable backends to performant frontends.',
     email: 'john.doe@example.com',
     location: 'San Francisco, CA',
     social: {
@@ -19,20 +19,29 @@ export const projects: Project[] = [
         id: '1',
         title: 'E-Commerce Platform',
         description: 'A full-featured e-commerce platform with payment integration, inventory management, and admin dashboard.',
+        domain: 'E-Commerce',
         technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'Stripe'],
         github: 'https://github.com/johndoe/ecommerce',
         link: 'https://ecommerce-demo.com',
         featured: true,
         role: 'Lead Full Stack Developer',
         problemStatement: 'The client needed a scalable solution to handle thousands of concurrent users during flash sales while maintaining sub-second page load times and real-time inventory updates.',
+        longDescription: 'We built a modular architecture with server-side rendering for fast initial loads, real-time inventory sync via WebSockets, and a headless CMS for flexible content management.',
+        approach: [
+            'Designed scalable API with GraphQL and REST fallback',
+            'Implemented real-time inventory using WebSockets',
+            'Integrated Stripe for payments with PCI compliance'
+        ],
+        highlights: ['Flash sale support', 'Admin dashboard', 'Analytics'],
         priority: 1,
         hasPreview: true,
-        image: '/images/projects/ecommerce.jpg' // Placeholder, will rely on hybrid approach if missing
+        image: '/images/projects/ecommerce.jpg'
     },
     {
         id: '2',
         title: 'Task Management App',
         description: 'Real-time collaborative task management application with team features and notifications.',
+        domain: 'Productivity',
         technologies: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
         github: 'https://github.com/johndoe/taskapp',
         featured: true,
@@ -45,6 +54,7 @@ export const projects: Project[] = [
         id: '3',
         title: 'Weather Dashboard',
         description: 'Beautiful weather dashboard with forecasts, maps, and historical data visualization.',
+        domain: 'Data Visualization',
         technologies: ['Vue.js', 'D3.js', 'OpenWeather API'],
         github: 'https://github.com/johndoe/weather',
         link: 'https://weather-demo.com',

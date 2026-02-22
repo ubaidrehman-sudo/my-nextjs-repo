@@ -12,6 +12,8 @@ export interface Project {
     longDescription?: string;
     highlights?: string[];
     role?: string;
+    domain?: string; // e.g. "E-Commerce", "SaaS"
+    approach?: string[]; // Bullet points: "What we did" / "Approach"
     problemStatement?: string;
     priority?: number; // Lower number = higher priority in listing
     hasPreview?: boolean; // Whether the link has social preview

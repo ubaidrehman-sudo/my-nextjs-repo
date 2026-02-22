@@ -74,7 +74,7 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                         placeholder="Search blogs by title, category, or tags..."
                         value={searchQuery}
                         onChange={(e) => handleSearchChange(e.target.value)}
-                        className="w-full px-6 py-4 bg-white border border-[var(--border)] rounded-2xl text-[var(--foreground)] placeholder:text-[var(--foreground-muted)] focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all duration-300 shadow-sm hover:border-[var(--accent-hover)]"
+                        className="w-full px-6 py-4 bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl text-[var(--foreground)] placeholder:text-[var(--foreground-muted)] focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all duration-300 shadow-[var(--shadow-surface)] hover:border-[var(--accent)]"
                     />
                     {searchQuery && (
                         <button
@@ -162,6 +162,7 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                         {paginatedPosts.map((post, index) => (
                             <div
                                 key={post.slug}
+                                className="min-w-0"
                                 style={{
                                     animation: `fadeIn 0.5s ease-out ${index * 0.1}s both`
                                 }}
@@ -173,37 +174,79 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
 
                     {/* Pagination */}
                     {totalPages > 1 && (
-                        <div className="flex items-center justify-center gap-2">
-                            <button
-                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                                disabled={currentPage === 1}
-                                className="px-4 py-2 border border-[var(--border)] rounded-lg text-[var(--foreground)] disabled:opacity-30 disabled:cursor-not-allowed hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-300"
-                            >
-                                Previous
-                            </button>
+                        <div className="flex flex-col items-center gap-4 py-8">
+                            <div className="inline-flex items-center gap-1 p-2 rounded-2xl bg-[var(--bg-section)] border border-[var(--border-muted)] shadow-[var(--shadow-surface)]">
+                                <button
+                                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                                    disabled={currentPage === 1}
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] hover:border-[var(--accent)] border border-transparent transition-all duration-300"
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                    Prev
+                                </button>
 
-                            <div className="flex gap-2">
-                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                                    <button
-                                        key={page}
-                                        onClick={() => setCurrentPage(page)}
-                                        className={`w-10 h-10 border rounded-lg transition-all duration-300 ${currentPage === page
-                                            ? 'bg-[var(--accent)] text-white border-[var(--accent)] shadow-lg shadow-[var(--accent)]/20'
-                                            : 'border-[var(--border)] text-[var(--foreground)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
-                                            }`}
-                                    >
-                                        {page}
-                                    </button>
-                                ))}
+                                <div className="flex items-center gap-1 mx-1">
+                                    {(() => {
+                                        const pages: (number | 'ellipsis')[] = [];
+                                        if (totalPages <= 7) {
+                                            for (let i = 1; i <= totalPages; i++) pages.push(i);
+                                        } else {
+                                            const showFirst = currentPage <= 3;
+                                            const showLast = currentPage >= totalPages - 2;
+                                            if (showFirst) {
+                                                for (let i = 1; i <= 4; i++) pages.push(i);
+                                                pages.push('ellipsis');
+                                                pages.push(totalPages);
+                                            } else if (showLast) {
+                                                pages.push(1);
+                                                pages.push('ellipsis');
+                                                for (let i = totalPages - 3; i <= totalPages; i++) pages.push(i);
+                                            } else {
+                                                pages.push(1);
+                                                pages.push('ellipsis');
+                                                for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+                                                pages.push('ellipsis');
+                                                pages.push(totalPages);
+                                            }
+                                        }
+                                        return pages.map((page, idx) =>
+                                            page === 'ellipsis' ? (
+                                                <span key={`e-${idx}`} className="w-8 h-8 flex items-center justify-center text-[var(--text-muted)]">
+                                                    ···
+                                                </span>
+                                            ) : (
+                                                <button
+                                                    key={page}
+                                                    onClick={() => setCurrentPage(page)}
+                                                    className={`min-w-[2.25rem] h-9 px-3 rounded-xl font-medium text-sm transition-all duration-300 ${
+                                                        currentPage === page
+                                                            ? 'bg-[var(--accent)] text-white border border-[var(--accent)] shadow-md shadow-[var(--accent)]/25'
+                                                            : 'text-[var(--foreground)] border border-transparent hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] hover:border-[var(--accent)]'
+                                                    }`}
+                                                >
+                                                    {page}
+                                                </button>
+                                            )
+                                        );
+                                    })()}
+                                </div>
+
+                                <button
+                                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                    disabled={currentPage === totalPages}
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] hover:border-[var(--accent)] border border-transparent transition-all duration-300"
+                                >
+                                    Next
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
                             </div>
-
-                            <button
-                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                                disabled={currentPage === totalPages}
-                                className="px-4 py-2 border border-[var(--border)] rounded-lg text-[var(--foreground)] disabled:opacity-30 disabled:cursor-not-allowed hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-300"
-                            >
-                                Next
-                            </button>
+                            <p className="text-xs text-[var(--text-muted)]">
+                                Page {currentPage} of {totalPages}
+                            </p>
                         </div>
                     )}
                 </>
