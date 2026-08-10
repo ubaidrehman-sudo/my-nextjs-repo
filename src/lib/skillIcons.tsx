@@ -28,7 +28,6 @@ import {
     SiFigma,
     SiPostman,
     SiNotion,
-
     SiWebpack,
     SiVite,
     SiBabel,
@@ -94,7 +93,38 @@ import {
     SiSafari,
     SiOpera,
     SiBrave,
+    SiGo,
+    SiApachekafka,
+    SiAmazondynamodb,
+    SiGooglecloud,
+    SiTerraform,
+    SiDatadog,
+    SiGrafana,
 } from 'react-icons/si';
+import { FiCpu, FiDatabase, FiServer } from 'react-icons/fi';
+
+/**
+ * Skill Icon Mapping System
+ * 
+ * CONVENTION FOR ADDING NEW SKILLS:
+ * 1. Import the brand icon from 'react-icons/si' (Simple Icons) for official technologies
+ * 2. Add the skill name → icon mapping to skillIconMap below
+ * 3. Add the brand's official color to skillColors (find official colors on brand sites or brandcolors.net)
+ * 4. If no official brand icon exists, use a category fallback from 'react-icons/fi' (Feather Icons):
+ *    - FiCpu for general computing/languages
+ *    - FiDatabase for data storage
+ *    - FiServer for backend/infrastructure
+ *    - FiCloud for cloud services
+ *    - FiTool for development tools
+ * 
+ * NAMING:
+ * - Use exact names as they appear in data.ts skills array
+ * - Match official brand capitalization (e.g., "Next.js" not "NextJS", "GraphQL" not "Graphql")
+ * 
+ * MISSING_ICON_FALLBACK:
+ * - The getSkillIcon() helper returns null if no match is found
+ * - SkillsSection component should handle null gracefully or use category fallback
+ */
 
 // Mapping of skill names to their corresponding icons
 export const skillIconMap: Record<string, IconType> = {
@@ -115,6 +145,8 @@ export const skillIconMap: Record<string, IconType> = {
     'TypeScript': SiTypescript,
     'JavaScript': SiJavascript,
     'Python': SiPython,
+    'Java': FiCpu,
+    'Go': SiGo,
 
     // Styling
     'Tailwind CSS': SiTailwindcss,
@@ -147,6 +179,8 @@ export const skillIconMap: Record<string, IconType> = {
     'NestJS': SiNestjs,
     'Nest.js': SiNestjs,
     'Socket.io': SiSocketdotio,
+    'Kafka': SiApachekafka,
+    'gRPC': FiServer,
 
     // Databases
     'PostgreSQL': SiPostgresql,
@@ -156,17 +190,24 @@ export const skillIconMap: Record<string, IconType> = {
     'Prisma': SiPrisma,
     'Firebase': SiFirebase,
     'Supabase': SiSupabase,
+    'DynamoDB': SiAmazondynamodb,
+    'BigQuery': SiGooglecloud,
 
     // DevOps & Tools
     'Docker': SiDocker,
     'Kubernetes': SiKubernetes,
     'AWS': SiAmazon,
+    'GCP': SiGooglecloud,
+    'Terraform': SiTerraform,
     'Vercel': SiVercel,
     'Netlify': SiNetlify,
     'Heroku': SiHeroku,
     'DigitalOcean': SiDigitalocean,
     'Cloudflare': SiCloudflare,
     'Nginx': SiNginx,
+    'Datadog': SiDatadog,
+    'ArgoCD': FiServer,
+    'Grafana': SiGrafana,
 
     // Version Control & CI/CD
     'Git': SiGit,
@@ -245,6 +286,8 @@ export const skillColors: Record<string, string> = {
     'TypeScript': '#3178C6',
     'JavaScript': '#F7DF1E',
     'Python': '#3776AB',
+    'Java': '#007396',
+    'Go': '#00ADD8',
     'Tailwind CSS': '#06B6D4',
     'CSS3': '#1572B6',
     'HTML5': '#E34F26',
@@ -256,6 +299,8 @@ export const skillColors: Record<string, string> = {
     'Express': '#000000',
     'NestJS': '#E0234E',
     'Socket.io': '#010101',
+    'Kafka': '#231F20',
+    'gRPC': '#244C5A',
     'PostgreSQL': '#4169E1',
     'MongoDB': '#47A248',
     'Redis': '#DC382D',
@@ -263,9 +308,13 @@ export const skillColors: Record<string, string> = {
     'Prisma': '#2D3748',
     'Firebase': '#FFCA28',
     'Supabase': '#3ECF8E',
+    'DynamoDB': '#4053D6',
+    'BigQuery': '#669DF6',
     'Docker': '#2496ED',
     'Kubernetes': '#326CE5',
     'AWS': '#FF9900',
+    'GCP': '#4285F4',
+    'Terraform': '#7B42BC',
     'Vercel': '#000000',
     'Git': '#F05032',
     'GitHub': '#181717',
@@ -288,6 +337,9 @@ export const skillColors: Record<string, string> = {
     'React Native': '#61DAFB',
     'Flutter': '#02569B',
     'Electron': '#47848F',
+    'Datadog': '#632CA6',
+    'ArgoCD': '#EF7B4D',
+    'Grafana': '#F46800',
 };
 
 // Helper function to get icon for a skill

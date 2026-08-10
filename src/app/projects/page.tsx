@@ -45,7 +45,7 @@ export default function ProjectsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {sortedProjects.map((project, index) => (
                     <div
-                        key={project.id}
+                        key={project.slug}
                         className="min-w-0"
                         style={{
                             animation: `fadeIn 0.6s ease-out ${index * 0.1}s both`

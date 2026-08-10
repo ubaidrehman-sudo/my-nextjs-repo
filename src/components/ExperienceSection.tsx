@@ -4,20 +4,21 @@ import { Experience } from '@/lib/types';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import SectionHeadingWithBar from './SectionHeadingWithBar';
+import ExperienceJobCard from './ExperienceJobCard';
 
 interface ExperienceSectionProps {
     experiences: Experience[];
 }
 
 export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
-    // Take only the latest 2 experiences
     const latestExperiences = experiences.slice(0, 2);
 
     return (
-        <section id="experience" className="py-24 mb-12 bg-[var(--bg-section-muted)]">
+        <section id="experience" className="py-24 mb-12 bg-[var(--bg-section)]">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex justify-between items-end mb-12">
                     <SectionHeadingWithBar
+                        label="Career"
                         title="Work Experience"
                         subtitle="Professional journey and roles"
                     />
@@ -40,32 +41,11 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="group relative pl-8 border-l-2 border-[color-mix(in_srgb,var(--accent)_15%,var(--border))] hover:border-[var(--accent)] transition-colors duration-300"
                         >
-                            <span className="absolute -left-[5px] top-6 w-[9px] h-[9px] rounded-full bg-[var(--accent)]/40 group-hover:bg-[var(--accent)] transition-colors duration-300" />
-
-                            <div className="bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-xl p-6 shadow-[var(--shadow-surface)] transition-base hover:border-[var(--accent)] hover:shadow-[var(--shadow-hover)]">
-                                <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 mb-2">
-                                    <h3 className="text-2xl font-bold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors">
-                                        {exp.title}
-                                    </h3>
-                                    <span className="text-[var(--foreground-muted)] text-lg">
-                                        <span className="text-[var(--accent)] font-semibold">@</span> {exp.company}
-                                    </span>
-                                </div>
-
-                                <div className="flex flex-col md:flex-row gap-4 md:items-center text-sm text-[var(--text-secondary)] font-medium mb-4 font-mono">
-                                    <span>
-                                        {exp.startDate} — {exp.endDate || 'Present'}
-                                    </span>
-                                    <span className="hidden md:inline text-[var(--border)]">|</span>
-                                    <span>{exp.location}</span>
-                                </div>
-
-                                <p className="text-[var(--foreground-muted)] max-w-3xl leading-relaxed">
-                                    {exp.description[0]} {/* Show only the first bullet point as summary */}
-                                </p>
-                            </div>
+                            <ExperienceJobCard
+                                experience={exp}
+                                defaultCollapsed={true}
+                            />
                         </motion.div>
                     ))}
                 </div>

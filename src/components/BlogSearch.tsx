@@ -74,7 +74,7 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                         placeholder="Search blogs by title, category, or tags..."
                         value={searchQuery}
                         onChange={(e) => handleSearchChange(e.target.value)}
-                        className="w-full px-6 py-4 bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl text-[var(--foreground)] placeholder:text-[var(--foreground-muted)] focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all duration-300 shadow-[var(--shadow-surface)] hover:border-[var(--accent)]"
+                        className="w-full px-6 py-4 bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl text-[var(--foreground)] placeholder:text-[var(--foreground-muted)] focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all duration-300 shadow-[var(--shadow-surface)] hover:border-[var(--border-strong)]"
                     />
                     {searchQuery && (
                         <button
@@ -107,8 +107,8 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                         <button
                             onClick={() => handleTagChange(null)}
                             className={`text-sm px-4 py-2 rounded-full border transition-all duration-300 ${selectedTag === null
-                                ? 'bg-[var(--accent)] text-white border-[var(--accent)] shadow-lg shadow-[var(--accent)]/20'
-                                : 'bg-[var(--background-elevated)] text-[var(--foreground-muted)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
+                                ? 'bg-[var(--accent)] text-white border-[var(--accent)]'
+                                : 'bg-[var(--background-elevated)] text-[var(--foreground-muted)] border-[var(--border)] hover:border-[var(--border-strong)] hover:text-[var(--foreground)]'
                                 }`}
                         >
                             All ({initialPosts.length})
@@ -120,8 +120,8 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                                     key={tag}
                                     onClick={() => handleTagChange(tag)}
                                     className={`text-sm px-4 py-2 rounded-full border transition-all duration-300 ${selectedTag === tag
-                                        ? 'bg-[var(--accent)] text-white border-[var(--accent)] shadow-lg shadow-[var(--accent)]/20'
-                                        : 'bg-[var(--background-elevated)] text-[var(--foreground-muted)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
+                                        ? 'bg-[var(--accent)] text-white border-[var(--accent)]'
+                                        : 'bg-[var(--background-elevated)] text-[var(--foreground-muted)] border-[var(--border)] hover:border-[var(--border-strong)] hover:text-[var(--foreground)]'
                                         }`}
                                 >
                                     {tag} ({count})
@@ -151,7 +151,7 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                     </p>
                     <button
                         onClick={clearFilters}
-                        className="px-6 py-2 bg-[var(--accent)] text-white rounded-full font-medium hover:bg-[var(--accent-hover)] transition-colors shadow-lg shadow-[var(--accent)]/20"
+                        className="px-6 py-2 bg-[var(--accent)] text-white rounded-full font-medium hover:bg-[var(--accent-hover)] transition-colors"
                     >
                         Clear filters
                     </button>
@@ -179,7 +179,7 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                                 <button
                                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                                     disabled={currentPage === 1}
-                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] hover:border-[var(--accent)] border border-transparent transition-all duration-300"
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--background-soft)] border border-transparent hover:border-[var(--border-muted)] transition-all duration-300"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -222,8 +222,8 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                                                     onClick={() => setCurrentPage(page)}
                                                     className={`min-w-[2.25rem] h-9 px-3 rounded-xl font-medium text-sm transition-all duration-300 ${
                                                         currentPage === page
-                                                            ? 'bg-[var(--accent)] text-white border border-[var(--accent)] shadow-md shadow-[var(--accent)]/25'
-                                                            : 'text-[var(--foreground)] border border-transparent hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] hover:border-[var(--accent)]'
+                                                            ? 'bg-[var(--accent)] text-white border border-[var(--accent)]'
+                                                            : 'text-[var(--foreground)] border border-transparent hover:bg-[var(--background-soft)] hover:border-[var(--border-muted)]'
                                                     }`}
                                                 >
                                                     {page}
@@ -236,7 +236,7 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                                 <button
                                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                                     disabled={currentPage === totalPages}
-                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--accent)]/10 hover:text-[var(--accent)] hover:border-[var(--accent)] border border-transparent transition-all duration-300"
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--background-soft)] border border-transparent hover:border-[var(--border-muted)] transition-all duration-300"
                                 >
                                     Next
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

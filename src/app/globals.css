@@ -1,17 +1,50 @@
 @import "tailwindcss";
 
+/* ============================================
+   DESIGN TOKENS & THEME SYSTEM
+   ============================================
+
+   This file defines all semantic tokens for the portfolio theme.
+   All components should reference these CSS variables, NOT raw hex values.
+
+   ## Semantic Token Categories:
+   - Background: --bg-page, --bg-section, --bg-section-muted, --bg-footer
+   - Text: --text-primary, --text-secondary, --text-muted
+   - Borders: --border, --border-muted, --border-strong
+   - Accent: --accent, --accent-hover, --accent-light, --accent-dark
+   - Gradients: --gradient-primary, --gradient-vibrant, --gradient-subtle
+   - Shadows: --shadow-surface, --shadow-hover, --shadow-modal
+   - Transitions: --transition-base
+
+   ## Adding Dark Mode (future):
+   1. Add `data-theme="dark"` or `className="dark"` to <html> in layout.tsx
+   2. Create a second :root block with `[data-theme="dark"]` or `.dark` selector
+   3. Reassign the same variable names with dark-appropriate values:
+      - Invert backgrounds (dark surfaces, light text)
+      - Adjust shadows for dark surfaces
+      - Keep accent colors or shift slightly for contrast
+   4. Components will automatically adapt without changes
+
+   ## Changing Brand Color (e.g., teal → orange):
+   - Update --accent, --accent-hover, --accent-light, --accent-dark
+   - Update --gradient-primary and --gradient-vibrant
+   - Optionally update @theme accent scale below
+   - All components will reflect the new brand color
+
+   ============================================ */
+
 @theme {
-  /* Cyan/Teal accent color palette */
-  --color-accent-50: #ecfeff;
-  --color-accent-100: #cffafe;
-  --color-accent-200: #a5f3fc;
-  --color-accent-300: #67e8f9;
-  --color-accent-400: #22d3ee;
-  --color-accent-500: #06b6d4;
-  --color-accent-600: #0891b2;
-  --color-accent-700: #0e7490;
-  --color-accent-800: #155e75;
-  --color-accent-900: #164e63;
+  /* Muted teal palette — darker, more authoritative */
+  --color-accent-50: #f0fdfa;
+  --color-accent-100: #ccfbf1;
+  --color-accent-200: #99f6e4;
+  --color-accent-300: #5eead4;
+  --color-accent-400: #2dd4bf;
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
+  --color-accent-700: #0f766e;
+  --color-accent-800: #115e59;
+  --color-accent-900: #134e4a;
 }
 
 /* Light Theme - Modern Teal & Fresh */
@@ -49,42 +82,34 @@
   --border-strong: #cbd5e1;
   /* Slate-300 - Stronger borders */
 
-  /* Primary Teal Colors */
-  --primary-500: #14b8a6;
-  --primary-600: #0d9488;
-  --accent: #14b8a6;
-  /* Teal-500 - Primary accent */
-  --accent-hover: #0d9488;
-  /* Teal-600 - Hover state */
-  --accent-light: #5eead4;
-  /* Teal-300 - Light accent */
-  --accent-dark: #0f766e;
-  /* Teal-700 - Dark accent */
+  /* Primary Accent — Teal-700: authoritative, still distinctly teal */
+  --primary-500: #0f766e;
+  --primary-600: #115e59;
+  --accent: #0f766e;
+  --accent-hover: #115e59;
+  --accent-light: #14b8a6;
+  --accent-dark: #134e4a;
 
-  /* Secondary Accent Colors */
+  /* Secondary Accent Colors (used sparingly) */
   --accent-orange: #f97316;
-  /* Orange-500 - Highlights */
   --accent-purple: #a855f7;
-  /* Purple-500 - Special elements */
   --accent-pink: #ec4899;
-  /* Pink-500 - Vibrant touches */
 
-  /* Gradient Definitions */
-  --gradient-primary: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
-  --gradient-vibrant: linear-gradient(135deg, #14b8a6 0%, #a855f7 50%, #ec4899 100%);
-  --gradient-subtle: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
-  --gradient-warm: linear-gradient(135deg, #14b8a6 0%, #f97316 100%);
+  /* Gradient — subtle teal shift, no rainbow */
+  --gradient-primary: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+  --gradient-vibrant: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+  --gradient-subtle: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 100%);
+  --gradient-warm: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
 
-  /* Shadow System: Surface, Hover, Modal */
+  /* Shadow System — clean, no colored glows */
   --shadow-surface: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-hover: 0 4px 12px -2px rgb(0 0 0 / 0.08), 0 2px 6px -2px rgb(0 0 0 / 0.04);
   --shadow-modal: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.04);
-  /* Legacy aliases */
   --shadow-sm: var(--shadow-surface);
   --shadow-md: var(--shadow-hover);
   --shadow-lg: var(--shadow-hover);
   --shadow-xl: var(--shadow-modal);
-  --shadow-teal: 0 10px 30px -5px rgba(20, 184, 166, 0.3);
+  --shadow-teal: 0 10px 30px -5px rgb(0 0 0 / 0.1);
 
   /* Global Transition */
   --transition-base: 220ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -102,7 +127,7 @@
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.9), 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
-/* Secondary button: works on light and light grey backgrounds */
+/* Secondary button: clean outline, professional lift */
 .btn-secondary {
   display: inline-flex;
   align-items: center;
@@ -119,11 +144,11 @@
 .btn-secondary:hover {
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: var(--shadow-hover), 0 0 20px rgba(20, 184, 166, 0.2);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
 }
 
-/* Primary button: filled teal, hover glow (app-wide) */
+/* Primary button: filled accent, clean hover */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -139,7 +164,8 @@
 }
 .btn-primary:hover {
   background: var(--accent-hover);
-  box-shadow: var(--shadow-hover), 0 0 20px rgba(20, 184, 166, 0.25);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
 }
 
 body {
@@ -202,44 +228,19 @@ html {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Hero name text shimmer - faint sweep every ~6s */
-@keyframes shimmer {
-  0% { background-position: -120% 0; }
-  100% { background-position: 220% 0; }
-}
-.hero-name-shimmer {
-  background: linear-gradient(
-    105deg,
-    var(--foreground) 0%,
-    var(--foreground) 40%,
-    rgba(20, 184, 166, 0.35) 50%,
-    var(--foreground) 60%,
-    var(--foreground) 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 6s ease-in-out infinite;
+/* Hero status badge — static, confident */
+.badge-blink {
+  opacity: 1;
 }
 
-/* Hero background: slow drifting gradient mesh (~20s) */
-@keyframes heroMesh {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.05; }
-  33% { transform: translate(5%, -3%) scale(1.05); opacity: 0.045; }
-  66% { transform: translate(-3%, 4%) scale(0.98); opacity: 0.05; }
+/* Hero name — solid color, no shimmer */
+.hero-name-shimmer {
+  color: var(--foreground);
 }
+
+/* Hero background — removed animated mesh */
 .hero-bg-mesh {
-  position: absolute;
-  inset: -20%;
-  background: radial-gradient(
-    ellipse 80% 80% at 30% 30%,
-    var(--accent) 0%,
-    transparent 55%
-  );
-  filter: blur(60px);
-  animation: heroMesh 20s ease-in-out infinite;
-  pointer-events: none;
+  display: none;
 }
 
 /* Custom Utilities */
@@ -272,7 +273,7 @@ html {
 
 @utility card-hover {
   border-color: var(--accent);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: var(--shadow-hover);
 }
 
@@ -453,9 +454,9 @@ code.hljs {
   background-color: #67060c;
 }
 
-/* Hide scrollbar for seamless look */
+/* Scrollbar — neutral, not accent-colored */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -463,12 +464,12 @@ code.hljs {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 4px;
+  background: var(--border-strong);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-hover);
+  background: var(--foreground-subtle);
 }
 
 @keyframes marquee {
@@ -517,7 +518,6 @@ code.hljs {
 
 .skill-badge:hover {
   border-color: var(--accent);
-  transform: translateY(-1px);
   box-shadow: var(--shadow-hover);
   background: color-mix(in srgb, var(--accent) 3%, var(--bg-section));
 }

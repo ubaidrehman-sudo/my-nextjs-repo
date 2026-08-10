@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir \"c:\\\\Users\\\\ubaid.rehman_venture\\\\Documents\\\\portfolio\\\\src\\\\app\\\\projects\\\\[slug]\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\ubaid.rehman_venture\\Documents\\portfolio\\src\\app\\projects"
+    ]
+  }
+}

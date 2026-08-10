@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { aboutMe } from '@/lib/data';
 
-const HOME_SECTION_IDS = ['skills', 'experience', 'projects', 'blog'] as const;
+/* TODO: blog hidden temporarily — restore 'blog' in this tuple when re-enabling Blog nav */
+const HOME_SECTION_IDS = ['skills', 'experience', 'projects'] as const;
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -48,8 +50,7 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', updateActiveSection);
     }, [isHome]);
 
-    const isDetailPage = (pathname.startsWith('/blog/') && pathname !== '/blog') ||
-        (pathname.startsWith('/projects/') && pathname !== '/projects');
+    const isDetailPage = pathname.startsWith('/blog/') && pathname !== '/blog';
     const isTransparent = !isScrolled && isDetailPage;
 
     const navLinks = [
@@ -58,7 +59,9 @@ export default function Navbar() {
         { name: 'Skills', href: '/#skills' },
         { name: 'Experience', href: '/#experience' },
         { name: 'Work', href: '/projects' },
+        /* TODO: blog hidden temporarily
         { name: 'Blog', href: '/blog' },
+        */
     ];
 
     const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -68,9 +71,12 @@ export default function Navbar() {
             sectionId = href.replace('/#', '');
         } else if (href === '/projects') {
             sectionId = 'projects';
-        } else if (href === '/blog') {
+        }
+        /* TODO: blog hidden temporarily
+        else if (href === '/blog') {
             sectionId = 'blog';
         }
+        */
         if (sectionId) {
             e.preventDefault();
             const element = document.getElementById(sectionId);
@@ -86,11 +92,15 @@ export default function Navbar() {
             if (href === '/#skills') return activeSection === 'skills';
             if (href === '/#experience') return activeSection === 'experience';
             if (href === '/projects') return activeSection === 'projects';
+            /* TODO: blog hidden temporarily
             if (href === '/blog') return activeSection === 'blog';
+            */
             return false;
         }
         if (href === '/projects') return pathname.startsWith('/projects');
+        /* TODO: blog hidden temporarily
         if (href === '/blog') return pathname.startsWith('/blog');
+        */
         return pathname === href;
     };
 
@@ -142,7 +152,7 @@ export default function Navbar() {
                                     {hoveredPath === link.href && (
                                         <motion.span
                                             layoutId="hover-pill"
-                                            className={`absolute inset-0 rounded-full -z-10 ${isTransparent ? 'bg-white/15 border border-white/20' : 'bg-[var(--accent)]/15 border border-[var(--accent)]/25'}`}
+                                            className={`absolute inset-0 rounded-full -z-10 ${isTransparent ? 'bg-white/15 border border-white/20' : 'bg-[var(--background-soft)] border border-[var(--border-muted)]'}`}
                                             initial={{ opacity: 0, scale: 0.9 }}
                                             animate={{ opacity: 1, scale: 1 }}
                                             exit={{ opacity: 0, scale: 0.9 }}
@@ -156,7 +166,7 @@ export default function Navbar() {
                     {/* GitHub Icon */}
                     <li className="relative ml-2">
                         <a
-                            href="https://github.com/johndoe" // Replace with actual GitHub URL from data if available, or keep generic for now
+                            href={aboutMe.social.github || '#'}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={`${isTransparent ? 'text-white nav-over-hero-text hover:text-white hover:bg-white/10' : 'text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]/10'} transition-all duration-200 p-2 block rounded-lg hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]`}
@@ -221,7 +231,7 @@ export default function Navbar() {
                             })}
                             <li className="pt-2 border-t border-[var(--border)] mt-2">
                                 <a
-                                    href="https://github.com/johndoe"
+                                    href={aboutMe.social.github || '#'}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-[var(--foreground-muted)] hover:text-[var(--foreground)] hover:bg-[var(--background-soft)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"

@@ -10,10 +10,10 @@ interface FeaturedWorkGridProps {
 
 export default function FeaturedWorkGrid({ projects }: FeaturedWorkGridProps) {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
                 <motion.div
-                    key={project.id}
+                    key={project.slug}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-40px' }}
@@ -24,7 +24,7 @@ export default function FeaturedWorkGrid({ projects }: FeaturedWorkGridProps) {
                     }}
                     className="min-w-0"
                 >
-                    <ProjectCard project={project} />
+                    <ProjectCard project={project} variant="compact" />
                 </motion.div>
             ))}
         </div>

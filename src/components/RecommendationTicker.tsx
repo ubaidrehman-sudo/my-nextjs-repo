@@ -1,22 +1,26 @@
 'use client';
 
+import Link from 'next/link';
 import { Review } from '@/lib/types';
 import SectionHeadingWithBar from './SectionHeadingWithBar';
 
 interface RecommendationTickerProps {
   reviews: Review[];
+  /** When set, shows a link below the testimonials (e.g. home page subset → full list on Experience) */
+  viewAllHref?: string;
+  viewAllLabel?: string;
 }
 
-export default function RecommendationTicker({ reviews }: RecommendationTickerProps) {
+export default function RecommendationTicker({ reviews, viewAllHref, viewAllLabel }: RecommendationTickerProps) {
   if (!reviews || reviews.length === 0) return null;
 
   const useGrid = reviews.length < 4;
 
   return (
-    <section className="py-24 mb-12 bg-[var(--bg-section)]">
+    <section className="py-24 mb-12 bg-[var(--bg-section-muted)]">
       <div className="max-w-7xl mx-auto px-4">
         {/* 6.1: Left heading, subtext - z-10 + bg so it stays visible when cards hover/lift */}
-        <div className="mb-12 relative z-10 bg-[var(--bg-section)]">
+        <div className="mb-12 relative z-10 bg-[var(--bg-section-muted)]">
           <SectionHeadingWithBar
             title="Kind Words"
             subtitle="What colleagues and clients say about working together"
@@ -80,6 +84,20 @@ export default function RecommendationTicker({ reviews }: RecommendationTickerPr
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {viewAllHref && viewAllLabel && (
+          <div className="text-center mt-10">
+            <Link
+              href={viewAllHref}
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent)] hover:underline underline-offset-4"
+            >
+              {viewAllLabel}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         )}
       </div>

@@ -34,11 +34,11 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
         );
     };
 
-    const renderCategory = (title: string, categorySkills: Skill[], Icon: typeof FiMonitor) => {
+    const renderCategory = (title: string, categorySkills: Skill[], Icon: typeof FiMonitor, key: string) => {
         if (categorySkills.length === 0) return null;
 
         return (
-            <div className="mb-10">
+            <div key={key} className="bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-lg p-6 shadow-[var(--shadow-surface)]">
                 <div className="flex items-center gap-3 pb-3 mb-4 border-b-2 border-[var(--accent)]">
                     <Icon className="w-5 h-5 text-[var(--accent)] shrink-0" aria-hidden />
                     <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
@@ -54,7 +54,7 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
         <section
             id="skills"
             ref={sectionRef}
-            className="py-24 mb-12 bg-[var(--bg-section)]"
+            className="py-24 mb-12 bg-[var(--bg-section-muted)]"
         >
             <div className="max-w-7xl mx-auto px-4">
                 <motion.div
@@ -63,6 +63,7 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
                     transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                 >
                     <SectionHeadingWithBar
+                        label="Technical Arsenal"
                         title="Skills & Technologies"
                         subtitle="I design and implement production-ready systems with modern tools and best practices."
                         className="mb-12"
@@ -70,14 +71,14 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
                 </motion.div>
 
                 <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-12 gap-y-4"
+                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.5, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
                 >
                     {CATEGORY_CONFIG.map(({ key, title, Icon }) => {
                         const categorySkills = skills.filter((s) => s.category === key);
-                        return renderCategory(title, categorySkills, Icon);
+                        return renderCategory(title, categorySkills, Icon, key);
                     })}
                 </motion.div>
             </div>

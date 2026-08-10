@@ -22,10 +22,10 @@
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--accent` | `#14b8a6` (Teal-500) | Primary accent, links, borders on hover |
-| `--accent-hover` | `#0d9488` (Teal-600) | Hover states |
-| `--accent-light` | `#5eead4` (Teal-300) | Light accents |
-| `--accent-dark` | `#0f766e` (Teal-700) | Dark accents |
+| `--accent` | `#0f766e` (Teal-700) | Primary accent, links, borders on hover |
+| `--accent-hover` | `#115e59` (Teal-800) | Hover states |
+| `--accent-light` | `#14b8a6` (Teal-500) | Light accents |
+| `--accent-dark` | `#134e4a` (Teal-900) | Dark accents |
 | `--accent-orange` | `#f97316` | Highlights (use sparingly) |
 | `--accent-purple` | `#a855f7` | Special elements |
 | `--accent-pink` | `#ec4899` | Vibrant touches |
@@ -55,10 +55,10 @@
 
 | Token | Definition |
 |-------|------------|
-| `--gradient-primary` | `linear-gradient(135deg, #14b8a6, #06b6d4)` |
-| `--gradient-vibrant` | Teal → Purple → Pink |
-| `--gradient-subtle` | Soft teal tints |
-| `--gradient-warm` | Teal → Orange |
+| `--gradient-primary` | `linear-gradient(135deg, #0f766e 0%, #0d9488 100%)` |
+| `--gradient-vibrant` | `linear-gradient(135deg, #0f766e 0%, #115e59 100%)` |
+| `--gradient-subtle` | `linear-gradient(135deg, #f0fdfa 0%, #f8fafc 100%)` |
+| `--gradient-warm` | `linear-gradient(135deg, #0f766e 0%, #0d9488 100%)` |
 
 **Utilities:** `gradient-primary`, `gradient-text`, `gradient-vibrant`, `glass-effect`
 
@@ -101,13 +101,21 @@
 
 ### Section Background Alternation
 
-- Hero → muted
-- Skills → white
-- Experience → muted
-- Featured Work → white
-- Articles → muted
-- Kind Words → white
-- Footer → anchor (`--bg-footer`)
+Current implementation on home page (`src/app/page.tsx`):
+
+| Order | Section | Background |
+|-------|---------|------------|
+| 1 | Hero | Muted (`--bg-section-muted`) |
+| 2 | Home Snapshot | White (`--bg-section`) |
+| 3 | Skills | Muted (`--bg-section-muted`) |
+| 4 | Experience | White (`--bg-section`) |
+| 5 | Featured Work | Muted (`--bg-section-muted`) |
+| 6 | Latest Articles | White (`--bg-section`) |
+| 7 | Kind Words (Recommendations) | Muted (`--bg-section-muted`) |
+| 8 | Contact Strip | White (`--bg-section`) |
+| 9 | Footer | Anchor gradient (`--bg-footer`) |
+
+**Rule:** Adjacent full-width sections must alternate between muted and white backgrounds to create visual rhythm.
 
 ### Spacing
 
@@ -130,12 +138,47 @@
 - **Secondary:** `.btn-secondary` — outline, hover teal border and lift; **hover glow:** same teal glow as primary for consistency. Use for View All, Back to Home, Download Resume, etc.
 - Both button styles are defined in `globals.css` so hover glow is **app-wide** wherever these classes are used.
 
+### Heading style convention
+
+- **Text-width underline (default):** Section titles (Featured Work, Latest Articles, etc.) and listing page titles use a **text-width** gradient bar below the heading. The bar matches the width of the heading text via `w-fit max-w-full` wrapper. This is the default behavior of `SectionHeadingWithBar` (`underlineWidth='text'`).
+- **Full-width underline (rare):** Use `underlineWidth='full'` prop on `SectionHeadingWithBar` for special cases requiring full-bleed underlines (e.g., category headers in Skills section).
+- **In-page hierarchy:** Detail content headings (project detail h2s, blog MDX h1/h2) use `border-b-2 border-[var(--accent)]` for text-length underlines.
+- **Hero heading:** No underline. The hero uses a tagline with one word in accent color (`tagline` + `taglineAccentWord` in `AboutMe`), or the name with shimmer. No bar under the hero headline.
+
 ### Section Headings (with gradient bar)
 
-- **Component:** `SectionHeadingWithBar` (`src/components/SectionHeadingWithBar.tsx`) — client component that renders a heading (h1 or h2), an optional subtitle, and a **full-width** teal–cyan gradient underline (2px height) that animates scaleX and opacity on scroll-in.
+- **Component:** `SectionHeadingWithBar` (`src/components/SectionHeadingWithBar.tsx`) — client component that renders a heading (h1 or h2), an optional subtitle, an optional label (via `SectionLabel`), and a **text-width or full-width** gradient underline (2px height) that animates scaleX and opacity on scroll-in.
 - **Usage:** Section intro headings on **home** (Featured Work, Latest Articles, Skills & Technologies, Work Experience, Kind Words) and on **listing pages** (Experience, Blog, Projects, About) for their main page title. **Not** used on blog or project **detail** pages (those keep existing title styling).
-- **Props:** `title`, `subtitle?`, `level?: 1 | 2`, `className?`, `subtitleClassName?`.
-- **Bar:** 2px height, full width, `var(--gradient-primary)`, rounded; `origin-left` scaleX 0.5 → 1 and opacity animate via Framer Motion when in view.
+- **Props:** `title`, `subtitle?`, `label?`, `level?: 1 | 2`, `className?`, `subtitleClassName?`, `underlineWidth?: 'text' | 'full'` (default: `'text'`).
+- **Bar:** 2px height, `var(--gradient-primary)`, rounded; `origin-left` scaleX 0.5 → 1 and opacity animate via Framer Motion when in view. When `underlineWidth='text'`, the bar is wrapped in `w-fit max-w-full` container; when `'full'`, it spans the full container width.
+
+### Section Labels
+
+- **Component:** `SectionLabel` (`src/components/SectionLabel.tsx`) — small pill-style label that appears above section headings.
+- **Usage:** Optional badge for section context (e.g., "Portfolio", "Insights", "Career", "Technical Arsenal", "Who I Am").
+- **Props:** `text`, `size?: 'hero' | 'section'`, `showDot?: boolean`, `className?`.
+- **Styling:** Rounded-full pill with border, uppercase tracking, optional accent dot. Hero size is slightly larger than section size.
+
+### Home Snapshot Cards
+
+- **Component:** `HomeSnapshotSection` (`src/components/HomeSnapshotSection.tsx`) — displays 3 card highlights below the hero on home page.
+- **Usage:** Quick stats/highlights (experience years, remote/global reach, education).
+- **Data:** `homeSnapshotCards` in `data.ts` with `iconKey`, `label`, `value`, `caption`.
+- **Styling:** 3-column grid (responsive), white cards on white section background, icons from `react-icons/fi`.
+
+### Experience Components
+
+- **Shared Card:** `ExperienceJobCard` (`src/components/ExperienceJobCard.tsx`) — unified job card used on both home and `/experience` page.
+- **Props:** `experience`, `defaultCollapsed?: boolean` (home: `true`, full page: `true`), `showAnimation?`, `animationDelay?`.
+- **Features:** Timeline dot, expandable bullets (shows 2 initially, "Show more" button), tech row, date range + tenure + "Current" pill.
+- **Home Usage:** `ExperienceSection` shows latest 2 experiences, collapsed by default with expand capability.
+- **Full Page Usage:** `ExperienceTimeline` shows all experiences with same card styling.
+
+### Contact Components
+
+- **Contact Strip:** `ContactStrip` (`src/components/ContactStrip.tsx`) — compact CTA on home page with email + LinkedIn buttons and link to full contact page.
+- **Contact Page:** `src/app/contact/page.tsx` — full page with heading, status chips, email/LinkedIn cards (2-col), FAQ grid (2x2), bottom CTA band.
+- **Data:** `contactChannels[]` and `contactFAQ[]` in `data.ts`.
 
 ### Navbar
 
@@ -159,6 +202,27 @@
 - **Badge:** Base — white bg (`--bg-section`), muted border, padding ~6px 12px. Hover — teal border, `translateY(-1px)`, shadow, 3% accent tint.
 - **Icons:** Each skill icon uses its **brand color** (e.g. GraphQL pink) via `getSkillColor(skill.name)` in `SkillsSection`; color applied with inline `style`, unchanged on hover. Hover styling applies only to the badge (border, lift, tint), not the icon color.
 
+### Skills Icon Mapping Convention
+
+**Location:** `src/lib/skillIcons.tsx`
+
+**Adding a new skill:**
+
+1. Add the skill to `data.ts` skills array with appropriate category
+2. Import the brand icon from `react-icons/si` (Simple Icons) for official technologies
+3. Add mapping to `skillIconMap` object: `'SkillName': SiIconComponent`
+4. Add official brand color to `skillColors` object: `'SkillName': '#hexcolor'`
+5. If no official brand icon exists, use category fallback from `react-icons/fi`:
+   - `FiCpu` for general computing/languages
+   - `FiDatabase` for data storage
+   - `FiServer` for backend/infrastructure
+   - `FiCloud` for cloud services
+   - `FiTool` for development tools
+
+**Naming:** Use exact names as they appear in `data.ts` skills array. Match official brand capitalization (e.g., "Next.js" not "NextJS", "GraphQL" not "Graphql").
+
+**Fallback:** `getSkillIcon()` returns `null` if no match found. The component handles this gracefully by not rendering an icon.
+
 ---
 
 ## 7. Animations & Micro-interactions
@@ -169,6 +233,7 @@
 |-------|----------|-----|
 | `animate-fade-in-up` | `fadeIn` | Section entrances |
 | `animate-pulse-glow` | `pulse-glow` | Subtle emphasis |
+| `badge-blink` | `badge-blink` | Hero status badge: subtle opacity pulse |
 | `animate-marquee` | `marquee` | Recommendation ticker |
 | `hero-name-shimmer` | `shimmer` | Hero name: faint highlight sweep every ~6s (background-clip: text) |
 | `hero-bg-mesh` | `heroMesh` | Hero background: single drifting gradient mesh over ~20s, low opacity |
@@ -222,23 +287,186 @@
 
 ### Accessibility
 
-- [ ] Verify contrast for gradient text (`gradient-text` utility)
-- [x] Focus styles for navbar (logo, links, GitHub, mobile menu) — `focus-visible:ring-2` with accent
+**Focus Management:**
+- [x] All interactive elements have `focus-visible:ring-2 focus-visible:ring-[var(--accent)]` with ring-offset
+- [x] Navbar: logo, nav links, GitHub icon, mobile menu button, mobile drawer links
+- [x] Footer: all quick links and social icons
+- [x] Cards: ProjectCard, BlogCard with proper link focus
+- [x] Buttons: CTAs, expand buttons, contact links
+- [x] Experience cards: expand/collapse button with `aria-expanded` and `aria-controls`
+
+**ARIA Labels:**
+- [x] Decorative elements marked with `aria-hidden`
+- [x] Icon-only buttons have `aria-label`
+- [x] Mobile menu button has `aria-expanded`
+- [x] Status pills and dots properly labeled
+
+**Keyboard Navigation:**
+- [x] All sections accessible via keyboard
+- [x] Skip links for screen readers (implicit via semantic HTML)
+- [x] Mobile menu fully keyboard navigable
+- [x] Expandable content (experience bullets) keyboard accessible
+
+**Color Contrast:**
+- [x] All text meets WCAG AA standards
+- [x] Accent color (#0f766e) provides sufficient contrast on white
+- [x] Muted text (#94a3b8) on light backgrounds maintains readability
+
+**Semantic HTML:**
+- [x] Proper heading hierarchy (h1 → h2 → h3)
+- [x] `<nav>`, `<footer>`, `<section>`, `<article>` elements used appropriately
+- [x] Lists use `<ul>` and `<li>`
+- [x] Buttons vs links correctly distinguished
 
 ### Documentation
 
-- [ ] Component storybook or catalog
+- [x] Component inventory documented
+- [x] Icon mapping conventions documented
+- [ ] Component storybook or catalog (future)
 - [ ] Figma design tokens export (optional)
 
 ---
 
 ---
 
+## 11. Complete Component Inventory
+
+### Core Layout Components
+
+| Component | Path | Purpose |
+|-----------|------|---------|
+| `Navbar` | `src/components/Navbar.tsx` | Fixed top navigation with scroll-spy, responsive, context-aware routing |
+| `Footer` | `src/components/Footer.tsx` | Site footer with quick links, contact, and social |
+| `HeroSection` | `src/components/HeroSection.tsx` | Home page hero with tagline, bio, stats, and image |
+| `SectionHeadingWithBar` | `src/components/SectionHeadingWithBar.tsx` | Section headings with optional label and animated underline |
+| `SectionLabel` | `src/components/SectionLabel.tsx` | Pill-style labels for section context |
+
+### Content Sections (Home)
+
+| Component | Path | Purpose |
+|-----------|------|---------|
+| `HomeSnapshotSection` | `src/components/HomeSnapshotSection.tsx` | 3-card highlights below hero |
+| `SkillsSection` | `src/components/SkillsSection.tsx` | Skills organized by category with icons |
+| `ExperienceSection` | `src/components/ExperienceSection.tsx` | Latest 2 experiences on home |
+| `FeaturedWorkGrid` | `src/components/FeaturedWorkGrid.tsx` | 3-column featured projects grid |
+| `LatestArticlesGrid` | `src/components/LatestArticlesGrid.tsx` | 3-column blog posts grid |
+| `RecommendationTicker` | `src/components/RecommendationTicker.tsx` | Client testimonials (grid or marquee) |
+| `ContactStrip` | `src/components/ContactStrip.tsx` | Compact CTA strip on home |
+
+### Shared/Reusable Components
+
+| Component | Path | Purpose |
+|-----------|------|---------|
+| `ExperienceJobCard` | `src/components/ExperienceJobCard.tsx` | Unified job card with timeline dot, expandable bullets, tech tags |
+| `ExperienceTimeline` | `src/components/ExperienceTimeline.tsx` | Full experience list wrapper |
+| `ProjectCard` | `src/components/ProjectCard.tsx` | Project card with image, tech tags, external links |
+| `BlogCard` | `src/components/BlogCard.tsx` | Blog post card with image and metadata |
+| `BlogSearch` | `src/components/BlogSearch.tsx` | Client-side blog filtering |
+| `Breadcrumbs` | `src/components/Breadcrumbs.tsx` | Semantic breadcrumb trail with chevron separators |
+
+### Pages
+
+| Route | Purpose | Key Features |
+|-------|---------|--------------|
+| `/` (home) | Main landing page | Hero, snapshot, skills, experience, featured work, articles, recommendations, contact strip |
+| `/about` | Personal story and values | Extended narrative, values grid, interests, work style, experience link |
+| `/experience` | Full work timeline | All experiences, education, certifications, recommendations |
+| `/projects` | Project portfolio | All projects with filtering |
+| `/projects/[slug]` | Project case study | Detailed project breakdown (readable slug URLs) |
+| `/blog` | Blog index | All posts with search/filter |
+| `/blog/[slug]` | Article detail | MDX content with custom styling |
+| `/contact` | Contact page | Email/LinkedIn cards, FAQ grid, CTA band |
+
+---
+
+## 12. Detail Page Pattern
+
+Used on `/projects/[slug]`. Blog detail (`/blog/[slug]`) will adopt the same structure in a follow-up.
+
+### Shell
+
+`min-h-screen pt-32 pb-20` — no full-bleed hero banner. The cover becomes an inline figure, which works identically for both project and blog detail.
+
+### Layout (top to bottom, all inside `max-w-7xl mx-auto px-4`)
+
+| Block | Component / element | Condition |
+|---|---|---|
+| **Breadcrumbs** | `<Breadcrumbs>` | Always |
+| **Header block** (`max-w-4xl`) | Meta chips + h1 with accent dot + description + CTA row | Always |
+| **Inline cover image** | `aspect-[16/9]`, `rounded-2xl`, gradient overlay at bottom | Only if `image` is set |
+| **Project Statement** card | `longDescription` prose | If `longDescription` |
+| **Two-column row** (12-col grid) | Key Highlights (lg:col-span-7) + Challenge/Outcome stack (lg:col-span-5) | If any of `highlights`, `problemStatement`, or `outcome` |
+| **My Contribution** card | `contributions[]` bullet list | If `contributions` |
+| **Architectural Decisions** card | `architecture[]` bullet list | If `architecture` |
+| **Tech Stack** chip wall | `technologies[]` | Always |
+| **Tools** chip wall | `tools[]` | If `tools` |
+| **More Projects rail** | 2-card grid, divider top, `SectionLabel` + `SectionHeadingWithBar` | If other featured projects exist |
+
+### Header block conventions
+
+- **Meta chips:** `Domain`, `Year`, `Role` — each a rounded-full pill using `bg-[var(--bg-section-muted)]` + `border border-[var(--border-muted)]`, uppercase, `text-xs tracking-wide`. Render only when the field is present.
+- **Title:** `font-serif text-5xl md:text-7xl font-bold` with a trailing `<span className="text-[var(--accent)]">.</span>` accent dot — the signature touch across detail pages.
+- **Description:** `text-xl md:text-2xl text-[var(--text-secondary)]`.
+- **CTAs:** `btn-primary` for "View Live Site" (external icon), `btn-secondary` for "View Source" (GitHub icon). Both conditional on field presence.
+
+### Content card conventions
+
+Every content card follows the same shell:
+
+```
+bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-8
+```
+
+Card header: icon in a `w-8 h-8 rounded-lg` square tinted with `bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]`, icon itself in `text-[var(--accent)]`. Title `text-lg font-bold text-[var(--text-primary)]` beside it.
+
+Each block uses `animate-fade-in-up` (existing utility) for scroll entrance consistency.
+
+### Breadcrumbs component
+
+**Component:** `Breadcrumbs` (`src/components/Breadcrumbs.tsx`)  
+**Props:** `items: { label: string; href?: string }[]`  
+**Semantics:** `<nav aria-label="Breadcrumb"><ol>` — last item gets `aria-current="page"` and `text-[var(--text-primary)]`; preceding items are muted links with `hover:text-[var(--accent)]`. Chevron `›` separator (`aria-hidden`).  
+**Reuse:** Pass `[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: title }]` on blog detail.
+
+### More Projects rail
+
+- Divider `border-t border-[var(--border-muted)] mt-24 pt-16`.
+- Header row: `SectionLabel "Continue Exploring"` + `SectionHeadingWithBar "More Projects"` + `View all →` link right-aligned (hidden on mobile, shown inline below grid on mobile).
+- 2-card `md:grid-cols-2` grid using `ProjectCard variant="compact"`.
+- Selection: other `featured` projects, same-domain first, then by `priority`, capped at 2.
+
+### Data model (`Project` type)
+
+| Field | Type | Purpose |
+|---|---|---|
+| `slug` | `string` | Kebab-case URL segment (replaces `id`) |
+| `year` | `number?` | Meta chip |
+| `contributions` | `string[]?` | My Contribution bullets (replaces `approach`) |
+| `outcome` | `string?` | The Outcome paragraph |
+| `architecture` | `string[]?` | Architectural Decisions bullets |
+| `tools` | `string[]?` | Tools chip wall (separate from `technologies`) |
+
+### Blog detail (follow-up — not yet implemented)
+
+When `/blog/[slug]` is redesigned, it will reuse:
+- `Breadcrumbs` (`Home / Blog / {title}`)
+- Header block with chips = `Category`, `Date`, `Reading time`
+- Inline cover image figure
+- Content body replaced by MDX `MarkdownRenderer`
+- Tags chip wall + "More Articles" rail at the bottom
+
+No additional design tokens or new visual language will be needed.
+
+---
+
 ## Changelog (design system)
 
+- **Apr 2026:** About page enrichment (Checklist I) — Added extended story fields (`story[]`, `workStyle`, `values[]`, `interests[]`) to `AboutMe` type. About page now includes: section label "Who I Am", multi-paragraph story, values grid with checkmarks, interests pills, remote/global work style card, and professional timeline link. Remote framing replaces plain location.
+- **Apr 2026:** Complete portfolio implementation (Checklists A-H) — Home snapshot section (3 cards below hero), unified `ExperienceJobCard` with expandable bullets and tenure calculation, Skills section with category cards and full icon coverage, Contact page with FAQ and channels, `SectionLabel` component integrated with `SectionHeadingWithBar`, consistent section background alternation (grey→white rhythm), all components using CSS variables. Design system reference updated with component inventory and icon mapping conventions.
+- **Mar 2025:** Hero redesign — content left / image right; blinking status badge (`.badge-blink`) above name; optional tagline with accent word; divider and hero stats row (years, projects, expertise); enhanced image card shadow. `AboutMe`: `status`, `tagline`, `taglineAccentWord`, `heroStats`. CTAs: Let's Connect (mailto) + Download CV. Heading style convention documented: full-length (section titles), text-length (detail h2s), hero (no underline, accent word).
 - **Feb 2025:** Home page polish — hero name shimmer (`hero-name-shimmer`), hero background gradient mesh (`hero-bg-mesh`), `.btn-primary` and button hover glow in `globals.css`, scroll-triggered card reveals (Featured Work / Latest Articles), `SectionHeadingWithBar` for section titles on home and listing pages. Design system doc updated as source of truth.
 - **Feb 2025:** Navbar — transparent state over blog/project hero with `.nav-over-hero-text` (text-shadow) for visibility on any image; context-aware nav (Work → `/projects`, Blog → `/blog` from other pages; scroll-to-section on home); scroll-spy on home for section highlighting; active link uses `--accent-light` when over hero; focus-visible ring on all nav interactive elements. Footer — unified column divider (`--accent`/40), social hover border teal, bottom bar divider `--accent`/25, "Built with" removed. Section heading bar — full-width 2px gradient underline with scale-in animation. Skill badges — icon brand colors via `getSkillColor`, teal hover on badge only.
 
 ---
 
-*Last updated: February 2025*
+*Last updated: April 2026*

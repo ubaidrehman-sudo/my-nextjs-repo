@@ -24,7 +24,7 @@ export default function LatestArticlesGrid({ posts }: LatestArticlesGridProps) {
                     }}
                     className="min-w-0"
                 >
-                    <BlogCard post={post} />
+                    <BlogCard post={post} variant="compact" />
                 </motion.div>
             ))}
         </div>

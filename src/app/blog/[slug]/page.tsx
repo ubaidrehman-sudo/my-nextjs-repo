@@ -68,11 +68,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-transparent to-transparent opacity-50" />
                     </>
                 ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-[var(--background-elevated)] to-[var(--background-soft)] relative">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)]/8 blur-3xl rounded-full translate-x-20 -translate-y-20" />
-                        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[var(--accent)]/8 blur-3xl rounded-full -translate-x-20 translate-y-20" />
-                        <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-[var(--accent)]/5 blur-2xl rounded-full -translate-x-1/2 -translate-y-1/2" />
-                    </div>
+                    <div className="w-full h-full bg-gradient-to-br from-[var(--background-elevated)] to-[var(--background-soft)]" />
                 )}
             </div>
 
@@ -113,7 +109,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                 {/* Sidebar - metadata */}
                 <div className="lg:col-span-1">
-                    <div className="sticky top-24 p-6 bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] transition-base hover:border-[var(--accent)] hover:shadow-[var(--shadow-teal)] border-t-4 border-t-[var(--accent)] space-y-6">
+                    <div className="sticky top-24 p-6 bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] transition-base hover:shadow-[var(--shadow-hover)] border-t-2 border-t-[var(--accent)] space-y-6">
                         {post.category && (
                             <div>
                                 <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-1">Category</h3>
@@ -123,7 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         <div>
                             <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">Published</h3>
                             <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-                                <svg className="w-4 h-4 text-[var(--accent)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-4 h-4 text-[var(--text-muted)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                                 <time dateTime={post.date}>{post.date}</time>
@@ -133,7 +129,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             <div>
                                 <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">Author</h3>
                                 <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-                                    <svg className="w-4 h-4 text-[var(--accent)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-4 h-4 text-[var(--text-muted)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                     <span>{post.author}</span>
@@ -144,7 +140,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             <div>
                                 <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-2">Read Time</h3>
                                 <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-                                    <svg className="w-4 h-4 text-[var(--accent)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-4 h-4 text-[var(--text-muted)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span>{post.readingTime}</span>
