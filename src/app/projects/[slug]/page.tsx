@@ -297,7 +297,7 @@ export default async function ProjectPage({ params }: Props) {
 
                 {/* More Projects rail */}
                 {moreProjects.length > 0 && (
-                    <div className="border-t border-[var(--border-muted)] mt-24 pt-16">
+                    <div className="border-t border-[var(--border-strong)] mt-24 pt-16">
                         <div className="flex items-end justify-between mb-10">
                             <div>
                                 <SectionLabel text="Continue Exploring" />
@@ -305,7 +305,7 @@ export default async function ProjectPage({ params }: Props) {
                             </div>
                             <Link
                                 href="/projects"
-                                className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors items-center gap-1.5 hidden md:inline-flex"
+                                className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline underline-offset-2 transition-colors items-center gap-1.5 hidden md:inline-flex focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 rounded"
                             >
                                 View all
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -321,7 +321,7 @@ export default async function ProjectPage({ params }: Props) {
                         <div className="mt-8 md:hidden">
                             <Link
                                 href="/projects"
-                                className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors flex items-center gap-1.5"
+                                className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline underline-offset-2 transition-colors flex items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 rounded"
                             >
                                 View all projects
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

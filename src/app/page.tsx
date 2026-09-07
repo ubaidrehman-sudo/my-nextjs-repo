@@ -1,22 +1,19 @@
 import Link from 'next/link';
 import { aboutMe, projects, skills, experiences, reviews, homeSnapshotCards, homeAboutBridge } from '@/lib/data';
-// TODO: blog hidden temporarily
-// import { getAllBlogPosts } from '@/lib/mdx';
+import { getAllBlogPosts } from '@/lib/mdx';
 import HeroSection from '@/components/HeroSection';
 import HomeSnapshotSection from '@/components/HomeSnapshotSection';
 import SkillsSection from '@/components/SkillsSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import RecommendationTicker from '@/components/RecommendationTicker';
 import FeaturedWorkGrid from '@/components/FeaturedWorkGrid';
-// TODO: blog hidden temporarily
-// import LatestArticlesGrid from '@/components/LatestArticlesGrid';
+import LatestArticlesGrid from '@/components/LatestArticlesGrid';
 import SectionHeadingWithBar from '@/components/SectionHeadingWithBar';
 import ContactSection from '@/components/ContactSection';
 
 export default async function Home() {
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
-  // TODO: blog hidden temporarily
-  // const recentBlogs = (await getAllBlogPosts()).slice(0, 3);
+  const recentBlogs = (await getAllBlogPosts()).slice(0, 3);
 
   return (
     <div className="overflow-hidden">
@@ -56,7 +53,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* TODO: blog hidden temporarily
+      {/* Latest Articles - white bg */}
       <section id="blog" className="py-24 mb-12 bg-[var(--bg-section)]">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-end mb-12">
@@ -79,7 +76,6 @@ export default async function Home() {
           <LatestArticlesGrid posts={recentBlogs} />
         </div>
       </section>
-      */}
 
       {/* Kind Words - muted bg */}
       <RecommendationTicker reviews={reviews} />

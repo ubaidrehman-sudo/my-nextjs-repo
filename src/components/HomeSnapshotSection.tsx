@@ -46,7 +46,7 @@ export default function HomeSnapshotSection({ bridge, cards }: HomeSnapshotSecti
                         return (
                             <div
                                 key={card.id}
-                                className="bg-[var(--background-elevated)] border border-[var(--border-muted)] rounded-xl p-6 transition-all duration-300 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-hover)]"
+                                className="bg-[var(--background-elevated)] border border-[var(--border-muted)] rounded-xl p-6 transition-base hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-hover)] hover:-translate-y-0.5"
                                 style={{ boxShadow: 'var(--shadow-surface)' }}
                             >
                                 <div className="flex items-start gap-4">

@@ -4,6 +4,7 @@ import { generateSEO, generateBlogPostSchema } from '@/lib/seo';
 import Link from 'next/link';
 import Image from 'next/image';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export async function generateStaticParams() {
     const posts = await getAllBlogPosts();
@@ -74,6 +75,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
             {/* Header Content */}
             <div className="max-w-7xl mx-auto px-4 mb-16">
+                <Breadcrumbs items={[
+                    { label: 'Home', href: '/' },
+                    { label: 'Blog', href: '/blog' },
+                    { label: post.title },
+                ]} />
                 <Link
                     href="/blog"
                     className="btn-secondary group inline-flex items-center gap-2 px-5 py-2.5"

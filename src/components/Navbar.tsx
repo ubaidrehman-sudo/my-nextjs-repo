@@ -6,8 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { aboutMe } from '@/lib/data';
 
-/* TODO: blog hidden temporarily — restore 'blog' in this tuple when re-enabling Blog nav */
-const HOME_SECTION_IDS = ['skills', 'experience', 'projects'] as const;
+const HOME_SECTION_IDS = ['skills', 'experience', 'projects', 'blog'] as const;
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -59,9 +58,7 @@ export default function Navbar() {
         { name: 'Skills', href: '/#skills' },
         { name: 'Experience', href: '/#experience' },
         { name: 'Work', href: '/projects' },
-        /* TODO: blog hidden temporarily
         { name: 'Blog', href: '/blog' },
-        */
     ];
 
     const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -71,12 +68,9 @@ export default function Navbar() {
             sectionId = href.replace('/#', '');
         } else if (href === '/projects') {
             sectionId = 'projects';
-        }
-        /* TODO: blog hidden temporarily
-        else if (href === '/blog') {
+        } else if (href === '/blog') {
             sectionId = 'blog';
         }
-        */
         if (sectionId) {
             e.preventDefault();
             const element = document.getElementById(sectionId);
@@ -92,15 +86,11 @@ export default function Navbar() {
             if (href === '/#skills') return activeSection === 'skills';
             if (href === '/#experience') return activeSection === 'experience';
             if (href === '/projects') return activeSection === 'projects';
-            /* TODO: blog hidden temporarily
             if (href === '/blog') return activeSection === 'blog';
-            */
             return false;
         }
         if (href === '/projects') return pathname.startsWith('/projects');
-        /* TODO: blog hidden temporarily
         if (href === '/blog') return pathname.startsWith('/blog');
-        */
         return pathname === href;
     };
 

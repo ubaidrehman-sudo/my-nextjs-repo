@@ -446,21 +446,24 @@ Each block uses `animate-fade-in-up` (existing utility) for scroll entrance cons
 | `architecture` | `string[]?` | Architectural Decisions bullets |
 | `tools` | `string[]?` | Tools chip wall (separate from `technologies`) |
 
-### Blog detail (follow-up — not yet implemented)
+### Blog detail (implemented)
 
-When `/blog/[slug]` is redesigned, it will reuse:
+`/blog/[slug]` reuses the same shared components as the Projects detail pattern:
 - `Breadcrumbs` (`Home / Blog / {title}`)
-- Header block with chips = `Category`, `Date`, `Reading time`
-- Inline cover image figure
-- Content body replaced by MDX `MarkdownRenderer`
-- Tags chip wall + "More Articles" rail at the bottom
+- Header block with a hero image, category label, title, and excerpt
+- Sticky metadata sidebar: category, published date, author, reading time, tags (each tag links back to `/blog`)
+- Content body rendered via `MarkdownRenderer` (`markdown-to-jsx`-based, not the Next MDX compiler — see `CONTENT_CREATION_GUIDE.md` §7 note)
 
-No additional design tokens or new visual language will be needed.
+No additional design tokens or new visual language were needed — it reuses the Projects
+detail page's existing card/border/shadow conventions as-is. There is currently no "More
+Articles" rail at the bottom of a post (unlike the Projects detail page's "More Projects"
+rail) — a candidate for a small follow-up if useful.
 
 ---
 
 ## Changelog (design system)
 
+- **Sep 2026:** Blog restored + Part 1 UI fixes — re-enabled the previously hidden Blog nav link, footer link, home "Latest Articles" section, and sitemap entries (feature was fully built, just commented out). Added `Breadcrumbs` to blog detail pages for parity with Projects. HomeSnapshotSection cards, Experience "Show more" button, Projects breadcrumbs/divider/"View all" links, and Footer contrast (dots, social borders, copyright divider) all received small hover/focus/contrast refinements — see `docs/UI_RECOMMENDATIONS.md` and `docs/UI_ANIMATIONS.md` for the broader (not-yet-implemented) recommendations that came out of the same review.
 - **Apr 2026:** About page enrichment (Checklist I) — Added extended story fields (`story[]`, `workStyle`, `values[]`, `interests[]`) to `AboutMe` type. About page now includes: section label "Who I Am", multi-paragraph story, values grid with checkmarks, interests pills, remote/global work style card, and professional timeline link. Remote framing replaces plain location.
 - **Apr 2026:** Complete portfolio implementation (Checklists A-H) — Home snapshot section (3 cards below hero), unified `ExperienceJobCard` with expandable bullets and tenure calculation, Skills section with category cards and full icon coverage, Contact page with FAQ and channels, `SectionLabel` component integrated with `SectionHeadingWithBar`, consistent section background alternation (grey→white rhythm), all components using CSS variables. Design system reference updated with component inventory and icon mapping conventions.
 - **Mar 2025:** Hero redesign — content left / image right; blinking status badge (`.badge-blink`) above name; optional tagline with accent word; divider and hero stats row (years, projects, expertise); enhanced image card shadow. `AboutMe`: `status`, `tagline`, `taglineAccentWord`, `heroStats`. CTAs: Let's Connect (mailto) + Download CV. Heading style convention documented: full-length (section titles), text-length (detail h2s), hero (no underline, accent word).
