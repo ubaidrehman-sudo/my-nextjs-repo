@@ -26,7 +26,7 @@ export interface Project {
 export interface Skill {
     id: string;
     name: string;
-    category: 'frontend' | 'backend' | 'database' | 'cloud' | 'tools' | 'other';
+    category: 'frontend' | 'backend' | 'database' | 'cloud' | 'ai' | 'tools' | 'other';
     proficiency: number; // 0-100
 }
 
@@ -59,13 +59,6 @@ export interface Review {
     company: string;
     content: string;
     image?: string;
-}
-
-export interface Tool {
-    id: string;
-    name: string;
-    category: string;
-    icon?: string;
 }
 
 export interface BlogPost {

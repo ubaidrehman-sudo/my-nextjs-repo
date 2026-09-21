@@ -79,6 +79,9 @@ export default function HeroSection({ aboutMe }: HeroSectionProps) {
                             </a>
                             <a
                                 href="/resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                download="Ubaid_ur_Rehman_Resume.pdf"
                                 className="btn-secondary inline-flex items-center gap-2 px-6 py-3"
                             >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>

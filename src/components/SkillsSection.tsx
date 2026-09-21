@@ -4,7 +4,7 @@ import { Skill } from '@/lib/types';
 import { getSkillIcon, getSkillColor } from '@/lib/skillIcons';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { FiMonitor, FiServer, FiDatabase, FiCloud, FiTool } from 'react-icons/fi';
+import { FiMonitor, FiServer, FiDatabase, FiCloud, FiTool, FiCpu } from 'react-icons/fi';
 import SectionHeadingWithBar from './SectionHeadingWithBar';
 
 interface SkillsSectionProps {
@@ -16,6 +16,7 @@ const CATEGORY_CONFIG: { key: Skill['category']; title: string; Icon: typeof FiM
     { key: 'backend', title: 'Backend Development', Icon: FiServer },
     { key: 'database', title: 'Database & Storage', Icon: FiDatabase },
     { key: 'cloud', title: 'Cloud & DevOps', Icon: FiCloud },
+    { key: 'ai', title: 'AI & GenAI', Icon: FiCpu },
     { key: 'tools', title: 'Tools & Testing', Icon: FiTool },
 ];
 
@@ -38,12 +39,12 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
         if (categorySkills.length === 0) return null;
 
         return (
-            <div key={key} className="bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-lg p-6 shadow-[var(--shadow-surface)]">
-                <div className="flex items-center gap-3 pb-3 mb-4 border-b-2 border-[var(--accent)]">
+            <div key={key} className="bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-lg p-4 sm:p-5 md:p-6 shadow-[var(--shadow-surface)]">
+                <div className="flex items-center gap-2.5 sm:gap-3 pb-2.5 sm:pb-3 mb-3 sm:mb-4 border-b-2 border-[var(--accent)]">
                     <Icon className="w-5 h-5 text-[var(--accent)] shrink-0" aria-hidden />
-                    <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
+                    <h3 className="text-sm sm:text-base font-semibold text-[var(--text-primary)]">{title}</h3>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {categorySkills.map(renderSkillBadge)}
                 </div>
             </div>
@@ -54,9 +55,9 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
         <section
             id="skills"
             ref={sectionRef}
-            className="py-24 mb-12 bg-[var(--bg-section-muted)]"
+            className="py-16 sm:py-20 md:py-24 mb-8 sm:mb-10 md:mb-12 bg-[var(--bg-section-muted)]"
         >
-            <div className="max-w-7xl mx-auto px-4">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
@@ -66,12 +67,12 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
                         label="Technical Arsenal"
                         title="Skills & Technologies"
                         subtitle="I design and implement production-ready systems with modern tools and best practices."
-                        className="mb-12"
+                        className="mb-8 sm:mb-10 md:mb-12"
                     />
                 </motion.div>
 
                 <motion.div
-                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+                    className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.5, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}

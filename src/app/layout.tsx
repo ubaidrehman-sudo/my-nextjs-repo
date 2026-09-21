@@ -5,35 +5,36 @@ import Footer from "@/components/Footer";
 import { generatePersonSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://yourportfolio.com"),
   title: {
-    default: "John Doe - Full Stack Developer",
-    template: "%s | John Doe",
+    default: "Ubaid Rehman - Lead Engineer & Solution Architect",
+    template: "%s | Ubaid Rehman",
   },
-  description: "Portfolio of John Doe, a passionate Full Stack Developer specializing in modern web applications with React, Next.js, and Node.js.",
-  keywords: ["Full Stack Developer", "React", "Next.js", "TypeScript", "Node.js", "Web Development"],
-  authors: [{ name: "John Doe" }],
-  creator: "John Doe",
+  description: "Portfolio of Ubaid Rehman, a Lead Engineer & Solution Architect specializing in multi-tenant, AI-augmented platforms with React, Next.js, and NestJS.",
+  keywords: ["Solution Architect", "Lead Engineer", "React", "Next.js", "TypeScript", "NestJS", "Web Development"],
+  authors: [{ name: "Ubaid Rehman" }],
+  creator: "Ubaid Rehman",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://yourportfolio.com",
-    siteName: "John Doe Portfolio",
-    title: "John Doe - Full Stack Developer",
-    description: "Portfolio of John Doe, a passionate Full Stack Developer",
+    siteName: "Ubaid Rehman Portfolio",
+    title: "Ubaid Rehman - Lead Engineer & Solution Architect",
+    description: "Portfolio of Ubaid Rehman, a Lead Engineer & Solution Architect",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "John Doe Portfolio",
+        alt: "Ubaid Rehman Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "John Doe - Full Stack Developer",
-    description: "Portfolio of John Doe, a passionate Full Stack Developer",
-    creator: "@johndoe",
+    title: "Ubaid Rehman - Lead Engineer & Solution Architect",
+    description: "Portfolio of Ubaid Rehman, a Lead Engineer & Solution Architect",
+    creator: "@ubaidurrehmankhan",
     images: ["/og-image.png"],
   },
 };

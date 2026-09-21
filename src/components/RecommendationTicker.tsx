@@ -35,7 +35,7 @@ export default function RecommendationTicker({ reviews, viewAllHref, viewAllLabe
               className="absolute -top-4 -left-2 text-[10rem] text-[var(--accent)] opacity-[0.035] pointer-events-none select-none font-serif"
               aria-hidden
             >
-              "
+              &ldquo;
             </div>
             {reviews.map((review) => (
               <div

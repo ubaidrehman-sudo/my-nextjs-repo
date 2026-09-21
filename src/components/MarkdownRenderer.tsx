@@ -1,6 +1,6 @@
 'use client';
 
-import Markdown from 'markdown-to-jsx';
+import Markdown, { MarkdownToJSX } from 'markdown-to-jsx';
 import { mdxComponents } from './MDXComponents';
 
 interface MarkdownRendererProps {
@@ -11,7 +11,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
     return (
         <Markdown
             options={{
-                overrides: mdxComponents as any,
+                overrides: mdxComponents as unknown as MarkdownToJSX.Overrides,
                 wrapper: 'div',
             }}
         >

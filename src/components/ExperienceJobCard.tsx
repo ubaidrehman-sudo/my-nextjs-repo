@@ -90,7 +90,7 @@ export default function ExperienceJobCard({
                     <button
                         type="button"
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline underline-offset-2 transition-colors mb-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 rounded"
+                        className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline underline-offset-2 transition-colors mb-4 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 rounded"
                         aria-expanded={isExpanded}
                         aria-controls={`exp-details-${experience.id}`}
                     >

@@ -5,7 +5,6 @@ const quickLinks = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/blog' },
   { name: 'Experience', href: '/experience' },
 ];
 
@@ -119,7 +118,7 @@ export default function Footer() {
                       className={`group inline-flex items-center justify-center w-10 h-10 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] ${item.defaultClass} ${item.hoverClass}`}
                       aria-label={item.label}
                     >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         {item.icon}
                       </svg>
                     </a>

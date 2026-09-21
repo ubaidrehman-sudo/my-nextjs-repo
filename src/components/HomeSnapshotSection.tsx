@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { HomeAboutBridge, SnapshotCard } from '@/lib/types';
 import { FiBriefcase, FiCheckCircle, FiAward } from 'react-icons/fi';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import SectionHeadingWithBar from './SectionHeadingWithBar';
 
 interface HomeSnapshotSectionProps {
@@ -15,6 +19,9 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 export default function HomeSnapshotSection({ bridge, cards }: HomeSnapshotSectionProps) {
+    const gridRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(gridRef, { once: true, margin: '-80px' });
+
     return (
         <section className="py-24 mb-12 bg-[var(--bg-section)]">
             <div className="max-w-7xl mx-auto px-4">
@@ -39,13 +46,16 @@ export default function HomeSnapshotSection({ bridge, cards }: HomeSnapshotSecti
                     </Link>
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {cards.map((card) => {
+                <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {cards.map((card, index) => {
                         const Icon = iconMap[card.iconKey] || FiBriefcase;
 
                         return (
-                            <div
+                            <motion.div
                                 key={card.id}
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
                                 className="bg-[var(--background-elevated)] border border-[var(--border-muted)] rounded-xl p-6 transition-base hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-hover)] hover:-translate-y-0.5"
                                 style={{ boxShadow: 'var(--shadow-surface)' }}
                             >
@@ -65,7 +75,7 @@ export default function HomeSnapshotSection({ bridge, cards }: HomeSnapshotSecti
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         );
                     })}
                 </div>

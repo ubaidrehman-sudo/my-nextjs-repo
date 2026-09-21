@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 interface BreadcrumbItem {
     label: string;
@@ -11,7 +14,13 @@ interface BreadcrumbsProps {
 
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
     return (
-        <nav aria-label="Breadcrumb" className="mb-8">
+        <motion.nav
+            aria-label="Breadcrumb"
+            className="mb-8"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
+        >
             <ol className="flex items-center flex-wrap gap-1 text-sm text-[var(--text-secondary)]">
                 {items.map((item, index) => {
                     const isLast = index === items.length - 1;
@@ -39,6 +48,6 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                     );
                 })}
             </ol>
-        </nav>
+        </motion.nav>
     );
 }

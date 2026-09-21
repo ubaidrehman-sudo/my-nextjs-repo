@@ -21,7 +21,7 @@ export default function ProjectCard({ project, variant = 'default' }: ProjectCar
     };
 
     return (
-        <Link href={`/projects/${project.slug}`} className="group block h-full min-w-0 outline-none focus:outline-none focus-visible:outline-none ring-0">
+        <Link href={`/projects/${project.slug}`} className="group block h-full min-w-0 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]">
             <article className="h-full min-w-0 bg-[var(--bg-section)] rounded-2xl overflow-clip shadow-[var(--shadow-surface)] transition-base flex flex-col hover:shadow-[var(--shadow-teal)] hover:-translate-y-0.5">
                 {/* Image area - strict clip; scale applied to wrapper to avoid border artifacts */}
                 <div className={`relative w-full min-w-0 overflow-clip rounded-t-2xl bg-[var(--bg-section)] isolate ${isCompact ? 'aspect-[16/9]' : 'aspect-video'}`}>
@@ -81,9 +81,9 @@ export default function ProjectCard({ project, variant = 'default' }: ProjectCar
 
                     {/* CTA + external links (below image, in content area) */}
                     <div className={`flex items-center justify-between gap-4 mt-auto border-t border-[var(--border-muted)] ${isCompact ? 'pt-3' : 'pt-4'}`}>
-                        <span className="text-sm font-medium text-[var(--accent)] flex items-center gap-2 group-hover:gap-3 transition-all">
+                        <span className="text-sm font-medium text-[var(--accent)] flex items-center gap-2 transition-all">
                             View Case Study
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
                         </span>

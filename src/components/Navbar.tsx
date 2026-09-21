@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { aboutMe } from '@/lib/data';
 
-const HOME_SECTION_IDS = ['skills', 'experience', 'projects', 'blog'] as const;
+const HOME_SECTION_IDS = ['skills', 'experience', 'projects'] as const;
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -58,7 +58,6 @@ export default function Navbar() {
         { name: 'Skills', href: '/#skills' },
         { name: 'Experience', href: '/#experience' },
         { name: 'Work', href: '/projects' },
-        { name: 'Blog', href: '/blog' },
     ];
 
     const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -105,7 +104,7 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-4 flex justify-between items-center relative">
                 <Link href="/" className={`text-xl font-bold font-serif tracking-tight group rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)] ${isTransparent ? 'text-white nav-over-hero-text' : 'text-[var(--foreground)]'}`}>
-                    John<span className={`transition-colors ${isTransparent ? 'text-[var(--accent)]' : 'text-[var(--accent)] group-hover:text-[var(--foreground)]'}`}>.</span>Doe
+                    Ubaid<span className={`transition-colors ${isTransparent ? 'text-[var(--accent)]' : 'text-[var(--accent)] group-hover:text-[var(--foreground)]'}`}>.</span>Rehman
                 </Link>
 
                 <ul className="hidden md:flex items-center gap-2">

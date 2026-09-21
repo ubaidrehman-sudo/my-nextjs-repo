@@ -100,8 +100,12 @@ import {
     SiTerraform,
     SiDatadog,
     SiGrafana,
+    SiLangchain,
+    SiOpenai,
+    SiAnthropic,
+    SiFastapi,
 } from 'react-icons/si';
-import { FiCpu, FiDatabase, FiServer } from 'react-icons/fi';
+import { FiCpu, FiDatabase, FiServer, FiLayers } from 'react-icons/fi';
 
 /**
  * Skill Icon Mapping System
@@ -147,6 +151,7 @@ export const skillIconMap: Record<string, IconType> = {
     'Python': SiPython,
     'Java': FiCpu,
     'Go': SiGo,
+    'FastAPI': SiFastapi,
 
     // Styling
     'Tailwind CSS': SiTailwindcss,
@@ -180,6 +185,7 @@ export const skillIconMap: Record<string, IconType> = {
     'Nest.js': SiNestjs,
     'Socket.io': SiSocketdotio,
     'Kafka': SiApachekafka,
+    'BullMQ': FiLayers,
     'gRPC': FiServer,
 
     // Databases
@@ -197,6 +203,7 @@ export const skillIconMap: Record<string, IconType> = {
     'Docker': SiDocker,
     'Kubernetes': SiKubernetes,
     'AWS': SiAmazon,
+    'AWS Bedrock': SiAmazon,
     'GCP': SiGooglecloud,
     'Terraform': SiTerraform,
     'Vercel': SiVercel,
@@ -215,6 +222,7 @@ export const skillIconMap: Record<string, IconType> = {
     'GitLab': SiGitlab,
     'Jenkins': SiJenkins,
     'CI/CD': SiGithub,
+    'GitHub Actions': SiGithub,
 
     // Testing
     'Jest': SiJest,
@@ -274,6 +282,15 @@ export const skillIconMap: Record<string, IconType> = {
     'Storybook': SiStorybook,
     'Electron': SiElectron,
     'Stripe': SiStripe,
+
+    // AI & GenAI
+    'LangChain': SiLangchain,
+    'OpenAI API': SiOpenai,
+    'Anthropic Claude': SiAnthropic,
+    'Anthropic API': SiAnthropic,
+    'RAG Pipelines': FiCpu,
+    'Vector DBs (Pinecone)': FiDatabase,
+    'Prompt Engineering': FiCpu,
 };
 
 // Brand colors for each technology (official brand colors)
@@ -288,6 +305,7 @@ export const skillColors: Record<string, string> = {
     'Python': '#3776AB',
     'Java': '#007396',
     'Go': '#00ADD8',
+    'FastAPI': '#009688',
     'Tailwind CSS': '#06B6D4',
     'CSS3': '#1572B6',
     'HTML5': '#E34F26',
@@ -300,6 +318,7 @@ export const skillColors: Record<string, string> = {
     'NestJS': '#E0234E',
     'Socket.io': '#010101',
     'Kafka': '#231F20',
+    'BullMQ': '#DC382D',
     'gRPC': '#244C5A',
     'PostgreSQL': '#4169E1',
     'MongoDB': '#47A248',
@@ -340,6 +359,11 @@ export const skillColors: Record<string, string> = {
     'Datadog': '#632CA6',
     'ArgoCD': '#EF7B4D',
     'Grafana': '#F46800',
+    'LangChain': '#1C3C3C',
+    'OpenAI API': '#412991',
+    'Anthropic Claude': '#D97757',
+    'Anthropic API': '#D97757',
+    'Vector DBs (Pinecone)': '#000000',
 };
 
 // Helper function to get icon for a skill

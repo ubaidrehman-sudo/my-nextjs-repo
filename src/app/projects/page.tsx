@@ -9,7 +9,15 @@ export const metadata: Metadata = {
     description: 'Showcase of my web development projects and experiments.',
 };
 
-export default function ProjectsPage() {
+const PROJECTS_PER_PAGE = 6;
+
+export default async function ProjectsPage({
+    searchParams,
+}: Readonly<{
+    searchParams: Promise<{ page?: string }>;
+}>) {
+    const { page } = await searchParams;
+
     // Sort projects by priority (lower number = higher priority), then by featured status
     const sortedProjects = [...projects].sort((a, b) => {
         if (a.priority !== b.priority) {
@@ -22,6 +30,11 @@ export default function ProjectsPage() {
         return 0;
     });
 
+    const totalPages = Math.max(1, Math.ceil(sortedProjects.length / PROJECTS_PER_PAGE));
+    const currentPage = Math.min(Math.max(1, Number(page) || 1), totalPages);
+    const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+    const pagedProjects = sortedProjects.slice(startIndex, startIndex + PROJECTS_PER_PAGE);
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-16 pt-32">
             <div className="flex justify-between items-end mb-12">
@@ -33,17 +46,17 @@ export default function ProjectsPage() {
                 />
                 <Link
                     href="/"
-                    className="btn-secondary group px-5 py-2.5 hidden md:inline-flex"
+                    className="btn-secondary group inline-flex items-center gap-2 px-5 py-2.5 hidden md:inline-flex"
                 >
-                    Back to Home
                     <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
+                    Back to Home
                 </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {sortedProjects.map((project, index) => (
+                {pagedProjects.map((project, index) => (
                     <div
                         key={project.slug}
                         className="min-w-0"
@@ -55,6 +68,55 @@ export default function ProjectsPage() {
                     </div>
                 ))}
             </div>
+
+            {totalPages > 1 && (
+                <nav
+                    aria-label="Projects pagination"
+                    className="flex items-center justify-center gap-2 mt-16"
+                >
+                    <Link
+                        href={currentPage > 1 ? `/projects?page=${currentPage - 1}` : '#'}
+                        aria-disabled={currentPage === 1}
+                        className={`inline-flex items-center justify-center w-10 h-10 rounded-lg border transition-colors ${currentPage === 1
+                            ? 'pointer-events-none opacity-40 border-[var(--border-muted)] text-[var(--text-muted)]'
+                            : 'border-[var(--border-muted)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
+                            }`}
+                        aria-label="Previous page"
+                    >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </Link>
+
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                        <Link
+                            key={pageNum}
+                            href={`/projects?page=${pageNum}`}
+                            aria-current={pageNum === currentPage ? 'page' : undefined}
+                            className={`inline-flex items-center justify-center w-10 h-10 rounded-lg border text-sm font-medium transition-colors ${pageNum === currentPage
+                                ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--accent)]'
+                                : 'border-[var(--border-muted)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
+                                }`}
+                        >
+                            {pageNum}
+                        </Link>
+                    ))}
+
+                    <Link
+                        href={currentPage < totalPages ? `/projects?page=${currentPage + 1}` : '#'}
+                        aria-disabled={currentPage === totalPages}
+                        className={`inline-flex items-center justify-center w-10 h-10 rounded-lg border transition-colors ${currentPage === totalPages
+                            ? 'pointer-events-none opacity-40 border-[var(--border-muted)] text-[var(--text-muted)]'
+                            : 'border-[var(--border-muted)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
+                            }`}
+                        aria-label="Next page"
+                    >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </Link>
+                </nav>
+            )}
         </div>
     );
 }

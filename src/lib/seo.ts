@@ -63,11 +63,11 @@ export function generateBlogPostSchema(post: {
         datePublished: post.date,
         author: {
             '@type': 'Person',
-            name: 'John Doe', // Replace with actual name from data
+            name: 'Ubaid Rehman',
         },
         publisher: {
             '@type': 'Organization',
-            name: 'John Doe Portfolio',
+            name: 'Ubaid Rehman Portfolio',
             logo: {
                 '@type': 'ImageObject',
                 url: '/logo.png',
@@ -84,13 +84,12 @@ export function generatePersonSchema() {
     return {
         '@context': 'https://schema.org',
         '@type': 'Person',
-        name: 'John Doe',
-        jobTitle: 'Full Stack Developer',
+        name: 'Ubaid Rehman',
+        jobTitle: 'Lead Engineer & Solution Architect',
         url: 'https://yourportfolio.com',
         sameAs: [
-            'https://github.com/johndoe',
-            'https://linkedin.com/in/johndoe',
-            'https://twitter.com/johndoe',
+            'https://github.com/ubaidurrehmankhan',
+            'https://linkedin.com/in/ubaid-dev',
         ],
     };
 }
