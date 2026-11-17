@@ -22,15 +22,19 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                         title="Work Experience"
                         subtitle="Professional journey and roles"
                     />
-                    <Link
-                        href="/experience"
-                        className="btn-secondary hidden md:inline-flex items-center gap-2 px-5 py-2.5 group"
-                    >
-                        View Full History
-                        <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                    </Link>
+                    {/* Wrapper does the hiding: .btn-secondary sets its own display, which would override `hidden`.
+                        On mobile the full-width button below the cards is used instead. */}
+                    <div className="hidden md:block shrink-0">
+                        <Link
+                            href="/experience"
+                            className="btn-secondary items-center gap-2 px-5 py-2.5 group whitespace-nowrap"
+                        >
+                            View Full History
+                            <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="space-y-6">
@@ -53,10 +57,10 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                 <div className="mt-12 md:hidden">
                     <Link
                         href="/experience"
-                        className="btn-secondary flex items-center justify-center px-5 py-3 group"
+                        className="btn-secondary w-full min-h-11 justify-center group"
                     >
                         View Full History
-                        <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                     </Link>

@@ -1,12 +1,14 @@
 import { getBlogPost, getAllBlogPosts } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import { generateSEO, generateBlogPostSchema } from '@/lib/seo';
+import { SITE_URL, BLOG_ENABLED } from '@/lib/site';
 import Link from 'next/link';
 import Image from 'next/image';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
 export async function generateStaticParams() {
+    if (!BLOG_ENABLED) return [];
     const posts = await getAllBlogPosts();
     return posts.map((post) => ({
         slug: post.slug,
@@ -14,6 +16,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    if (!BLOG_ENABLED) return {};
+
     const { slug } = await params;
     const post = await getBlogPost(slug);
 
@@ -25,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         title: post.title,
         description: post.excerpt,
         image: post.image,
-        url: `https://yourportfolio.com/blog/${slug}`,
+        url: `${SITE_URL}/blog/${slug}`,
         type: 'article',
         publishedTime: post.date,
         tags: post.tags,
@@ -33,6 +37,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+    if (!BLOG_ENABLED) notFound();
+
     const { slug } = await params;
     const post = await getBlogPost(slug);
 
@@ -45,7 +51,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         description: post.excerpt,
         date: post.date,
         image: post.image,
-        url: `https://yourportfolio.com/blog/${slug}`,
+        url: `${SITE_URL}/blog/${slug}`,
     });
 
     return (
@@ -56,7 +62,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             />
 
             {/* Hero Image - no text on image */}
-            <div className="relative w-full h-[400px] mb-12 bg-[var(--bg-section)] border-b border-[var(--border-muted)] overflow-hidden">
+            <div className="relative w-full h-56 sm:h-[400px] mb-8 sm:mb-12 bg-[var(--bg-section)] border-b border-[var(--border-muted)] overflow-hidden">
                 {post.image ? (
                     <>
                         <Image
@@ -96,7 +102,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             {post.category}
                         </span>
                     )}
-                    <h1 className="text-5xl md:text-7xl font-serif font-bold text-[var(--text-primary)] mb-6 leading-tight mt-2">
+                    <h1 className="text-3xl sm:text-5xl md:text-7xl font-serif font-bold text-[var(--text-primary)] mb-6 leading-tight mt-2 break-words">
                         {post.title}
                     </h1>
                     <p className="text-xl md:text-2xl text-[var(--text-secondary)] leading-relaxed">

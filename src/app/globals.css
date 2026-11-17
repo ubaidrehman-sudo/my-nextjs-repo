@@ -61,11 +61,11 @@
   --foreground: #0f172a;
   --text-primary: #0f172a;
   --text-secondary: #475569;
-  --text-muted: #94a3b8;
+  --text-muted: #5b6b81; /* was #94a3b8 (2.6:1 on white); now ~5.4:1, WCAG AA */
   /* Slate-900 - Primary text */
   --foreground-muted: #475569;
   /* Slate-600 - Secondary text */
-  --foreground-subtle: #94a3b8;
+  --foreground-subtle: #5b6b81;
   /* Slate-400 - Tertiary text */
 
   /* Background Tokens */
@@ -549,5 +549,20 @@ code.hljs {
   .skill-icon {
     width: 1.125rem;
     height: 1.125rem;
+  }
+}
+/* Respect the user's reduced-motion preference: no smooth scrolling, no marquee,
+   and effectively instant transitions/animations. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

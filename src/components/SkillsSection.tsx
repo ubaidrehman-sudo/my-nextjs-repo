@@ -12,11 +12,11 @@ interface SkillsSectionProps {
 }
 
 const CATEGORY_CONFIG: { key: Skill['category']; title: string; Icon: typeof FiMonitor }[] = [
-    { key: 'frontend', title: 'Frontend Development', Icon: FiMonitor },
     { key: 'backend', title: 'Backend Development', Icon: FiServer },
-    { key: 'database', title: 'Database & Storage', Icon: FiDatabase },
     { key: 'cloud', title: 'Cloud & DevOps', Icon: FiCloud },
+    { key: 'database', title: 'Database & Storage', Icon: FiDatabase },
     { key: 'ai', title: 'AI & GenAI', Icon: FiCpu },
+    { key: 'frontend', title: 'Frontend Development', Icon: FiMonitor },
     { key: 'tools', title: 'Tools & Testing', Icon: FiTool },
 ];
 
@@ -29,7 +29,7 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
         const color = getSkillColor(skill.name);
         return (
             <div key={skill.id} className="skill-badge">
-                {Icon && <Icon className="skill-icon" style={{ color }} />}
+                {Icon && <Icon className="skill-icon" style={{ color }} aria-hidden="true" />}
                 <span className="skill-name">{skill.name}</span>
             </div>
         );
@@ -66,7 +66,7 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
                     <SectionHeadingWithBar
                         label="Technical Arsenal"
                         title="Skills & Technologies"
-                        subtitle="I design and implement production-ready systems with modern tools and best practices."
+                        subtitle="Backend and cloud architecture first, with AI and GenAI tooling where it earns its place."
                         className="mb-8 sm:mb-10 md:mb-12"
                     />
                 </motion.div>

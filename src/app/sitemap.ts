@@ -1,11 +1,12 @@
 import { MetadataRoute } from 'next';
 import { projects } from '@/lib/data';
 import { getAllBlogPosts } from '@/lib/mdx';
+import { SITE_URL, BLOG_ENABLED } from '@/lib/site';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://yourportfolio.com';
+    const baseUrl = SITE_URL;
 
-    const posts = await getAllBlogPosts();
+    const posts = BLOG_ENABLED ? await getAllBlogPosts() : [];
 
     const blogPosts = posts.map((post) => ({
         url: `${baseUrl}/blog/${post.slug}`,
@@ -39,17 +40,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly' as const,
             priority: 0.8,
         },
-        {
-            url: `${baseUrl}/blog`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly' as const,
-            priority: 0.9,
-        },
+        ...(BLOG_ENABLED
+            ? [
+                {
+                    url: `${baseUrl}/blog`,
+                    lastModified: new Date(),
+                    changeFrequency: 'weekly' as const,
+                    priority: 0.9,
+                },
+            ]
+            : []),
     ];
 
     const projectRoutes = projects.map((project) => ({
         url: `${baseUrl}/projects/${project.slug}`,
-        lastModified: new Date(),
+        // Use the project's own year rather than "now" so lastModified is truthful.
+        lastModified: project.year ? new Date(`${project.year}-01-01`) : undefined,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
     }));

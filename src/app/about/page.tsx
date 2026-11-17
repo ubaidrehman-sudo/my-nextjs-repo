@@ -8,6 +8,7 @@ import ContactSection from '@/components/ContactSection';
 export const metadata: Metadata = {
     title: 'About',
     description: `Learn more about ${aboutMe.name}, a ${aboutMe.title}`,
+    alternates: { canonical: '/about' },
 };
 
 export default function AboutPage() {

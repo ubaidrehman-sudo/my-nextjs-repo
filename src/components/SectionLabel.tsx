@@ -16,7 +16,7 @@ export default function SectionLabel({
     return (
         <div
             className={`inline-flex items-center gap-2 rounded-full border border-[var(--border-strong)] bg-[var(--background-soft)] text-[var(--text-secondary)] font-medium uppercase tracking-wider ${
-                isHero ? 'px-3 py-1 text-xs' : 'px-2.5 py-0.5 text-[0.625rem]'
+                isHero ? 'px-3 py-1 text-xs' : 'px-2.5 py-0.5 text-xs'
             } ${className}`}
         >
             {showDot && (

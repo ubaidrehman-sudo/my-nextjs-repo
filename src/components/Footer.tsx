@@ -77,7 +77,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all text-sm group/link"
+                    className="inline-flex items-center gap-2 min-h-11 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all text-sm group/link"
                   >
                     <span className="w-1 h-1 rounded-full bg-[var(--text-muted)] group-hover/link:bg-[var(--accent)] transition-all shrink-0" />
                     {link.name}
@@ -94,7 +94,7 @@ export default function Footer() {
             </p>
             <a
               href={`mailto:${aboutMe.email}`}
-              className="inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all text-sm group/email"
+              className="inline-flex items-center gap-2 min-h-11 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all text-sm group/email"
             >
               <span className="w-1 h-1 rounded-full bg-[var(--text-muted)] group-hover/email:bg-[var(--accent)] transition-all shrink-0" />
               {aboutMe.email}
@@ -115,7 +115,7 @@ export default function Footer() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`group inline-flex items-center justify-center w-10 h-10 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] ${item.defaultClass} ${item.hoverClass}`}
+                      className={`group inline-flex items-center justify-center w-11 h-11 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] ${item.defaultClass} ${item.hoverClass}`}
                       aria-label={item.label}
                     >
                       <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

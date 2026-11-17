@@ -1,7 +1,7 @@
 // Portfolio content — sourced from docs/content/01-career-projects-master.md and
 // docs/content/02-career-experience-master.md. Nothing here is invented; metrics
 // and claims trace directly to those files. Voice per docs/content/07-voice-and-positioning-profile.md.
-import { AboutMe, Project, Skill, Experience, Education, Review, SnapshotCard, ContactChannel, ContactFAQ, HomeAboutBridge } from './types';
+import { AboutMe, Project, Skill, Experience, Education, Review, HeroStat, ArchitecturePillar, ContactChannel, ContactFAQ, HomeAboutBridge } from './types';
 
 export const aboutMe: AboutMe = {
     name: 'Ubaid Rehman',
@@ -17,8 +17,8 @@ export const aboutMe: AboutMe = {
     tagline: 'Architecting systems that stay standing when',
     taglineAccentWord: 'things fail.',
     bioLead: 'I design and deliver',
-    bioEmphasis: 'multi-tenant, AI-augmented platforms that hold up under real load.',
-    bioRest: 'Row-Level Security, hybrid RAG pipelines, and AWS Bedrock architecture — built for regulated, client-facing SaaS, not slide decks.',
+    bioEmphasis: 'multi-tenant platforms that hold up under real load,',
+    bioRest: 'adding AI — hybrid RAG pipelines on AWS Bedrock — only where it earns its place. Built for regulated, client-facing SaaS, not slide decks.',
     story: [
         'I read the existing docs first, take notes, and talk to people about a problem before I build anything — a prototype only gets built when it\'s genuinely needed. Under real deadline pressure, the one thing I won\'t compromise on is testing: I always test locally with my own judgment, happy paths and edge cases, even when a QA suite already exists.',
         'In the AI era specifically, I\'ve deliberately shifted from an execution-first instinct toward research-and-planning-first. With execution increasingly automated, the specification and planning stage is where the real engineering judgment now lives.',
@@ -41,36 +41,47 @@ export const aboutMe: AboutMe = {
     ],
 };
 
+// Proof strip under the hero. Facts only — each traces to the experience and projects data below.
+export const heroStats: HeroStat[] = [
+    { value: 'Since 2018', label: 'Building software' },
+    { value: '13', label: 'Projects delivered' },
+    { value: '6', label: 'Industry domains' },
+    { value: 'RLS · RAG', label: 'Tenant isolation, hybrid retrieval' },
+];
+
 export const homeAboutBridge: HomeAboutBridge = {
-    label: 'Who I am',
-    title: 'Engineer behind the code',
-    subtitle: 'Context before we dive into tools, work history, and projects',
+    label: 'How I work',
+    title: 'Architecture, with AI where it counts',
+    subtitle: 'Trade-offs and failure modes first, tooling second',
     intro:
-        'I care about trade-offs, failure modes, and systems that hold up in production — not slide-deck architecture. Here\'s a quick snapshot; the longer story lives on my About page.',
+        'I care about trade-offs, failure modes, and systems that hold up in production — not slide-deck architecture. Here\'s what that looks like in practice; the longer story lives on my About page.',
     aboutLinkText: 'Read my story',
 };
 
-export const homeSnapshotCards: SnapshotCard[] = [
+export const architecturePillars: ArchitecturePillar[] = [
     {
         id: '1',
-        iconKey: 'experience',
-        label: 'Experience',
-        value: 'Since Jan 2018',
-        caption: 'From backend fundamentals at Nextbridge to Lead Engineer & Solution Architect at VentureDive',
+        iconKey: 'resilience',
+        label: 'Design for failure',
+        title: 'Tenant isolation and boundaries that hold',
+        description:
+            'Multi-tenant platforms built on PostgreSQL Row-Level Security and ports-and-adapters module boundaries, with every deliberate exception written down instead of left silent.',
     },
     {
         id: '2',
-        iconKey: 'projects',
-        label: 'Projects Delivered',
-        value: '13',
-        caption: 'Across LegalTech, RegTech, HealthTech, FinTech-adjacent commerce, AgriTech, and cybersecurity',
+        iconKey: 'ai',
+        label: 'AI with judgment',
+        title: 'RAG and Bedrock, kept reviewable',
+        description:
+            'Hybrid RAG retrieval and AWS Bedrock where they add real value, with AI-generated content auditable and reviewed by humans rather than auto-trusted.',
     },
     {
         id: '3',
-        iconKey: 'education',
-        label: 'Specialization',
-        value: 'Multi-Tenant SaaS & AI Architecture',
-        caption: 'Row-Level Security tenant isolation, hybrid RAG pipelines, AWS Bedrock — solo-architected end to end',
+        iconKey: 'delivery',
+        label: 'Regulated domains',
+        title: 'From pre-sales to production',
+        description:
+            'Owned end to end across LegalTech, RegTech, HealthTech, AgriTech, and cybersecurity — from the pre-sales conversation through architecture to production, for clients across Pakistan, the UAE, and KSA.',
     },
 ];
 
@@ -78,7 +89,7 @@ export const projects: Project[] = [
     // --- VentureDive ---
     {
         slug: 'clearedgeiq',
-        image: '/images/projects/clearedgeiq.png',
+        image: '/images/projects/clearedgeiq.webp',
         title: 'ClearEdgeIQ',
         description: 'A multi-tenant NestJS/PostgreSQL/AWS Bedrock platform managing sourcing events, vendor relationships, and contract lifecycle with AI assistance — built end-to-end under a client Statement of Work.',
         domain: 'LegalTech / Procurement & Contract Lifecycle Management',
@@ -87,7 +98,7 @@ export const projects: Project[] = [
         technologies: ['TypeScript', 'NestJS', 'PostgreSQL', 'Redis', 'AWS Bedrock', 'AWS Cognito', 'AWS S3', 'AWS Secrets Manager', 'Docker', 'GitHub Actions'],
         tools: ['Jenkins', 'SonarQube', 'Jest', 'Swagger'],
         featured: true,
-        problemStatement: 'ClearEdge Enterprises LLC needed to replace manual, unstructured contract review and RFP/RFQ drafting with a governed, multi-tenant platform — one where AI-generated content is auditable and reviewed by humans rather than auto-trusted. Delivered under SOW ref VD-CEIQ-SOW-001, with a committed 12-week build plus 45-day hypercare.',
+        problemStatement: 'ClearEdge Enterprises LLC needed to replace manual, unstructured contract review and RFP/RFQ drafting with a governed, multi-tenant platform — one where AI-generated content is auditable and reviewed by humans rather than auto-trusted. Delivered under a committed 12-week build plus 45-day hypercare.',
         longDescription: 'Engaged as Solution Architect for design and build, I designed the ports-and-adapters module-boundary convention, the PostgreSQL Row-Level Security tenant-isolation model, and the hybrid RAG retrieval pipeline. I personally authored roughly 92% of all commits (220 of 239) across a 12–13 week window, from kickoff on 2026-06-16 through steady-state production on 2026-09-08. Every module\'s status is tracked, every architectural decision is logged with sign-off, and every deliberate exception to a standing convention is written down rather than left as silent inconsistency.',
         contributions: [
             'Designed the ports-and-adapters module-boundary convention as a genuinely forward-looking bet: the Vendor Directory module shipped before Sourcing and Contracts existed, so its cross-module ports were deliberately bound to permissive stub adapters until the real modules landed — the interface was built before both sides of it existed.',
@@ -125,12 +136,20 @@ export const projects: Project[] = [
             'CI/CD: GitHub Actions — lint/test/SonarQube, then OIDC-authenticated Docker Buildx build/push to ECR, then force-deploy of two ECS services per branch-mapped environment, followed by CloudFront invalidation.',
             'Honest, tracked gaps: zero end-to-end test files despite test:e2e being wired up, and no enforced Jest coverage threshold despite a stated ≥90% target — named as the project\'s own highest-priority backlog item, not glossed over.',
         ],
+        tags: ['ai', 'multi-tenant', 'regulated'],
+        stats: [
+            { value: '~92%', label: 'of commits authored solo (220 of 239)' },
+            { value: '26', label: 'backend modules, 84 migrations' },
+            { value: '12 wks', label: 'kickoff to steady-state production' },
+        ],
+        aiApproach:
+            'AI drafts and summarizes; people review. Business-rule correctness is enforced in the prompt layer, arithmetic-sensitive output is recomputed deterministically on the server, and per-use-case Bedrock models keep cheap, fast models on high-volume work while a stronger model is reserved for judgment-heavy clause-risk analysis.',
         priority: 1,
         hasPreview: false,
     },
     {
         slug: 'outreachiq',
-        image: '/images/projects/outreachiq.png',
+        image: '/images/projects/outreachiq.webp',
         title: 'OutreachIQ',
         description: 'A GenAI-powered platform that automates personalized B2B outbound outreach (email and LinkedIn) using a LangChain-based multi-agent architecture.',
         domain: 'B2B SaaS / GenAI Sales & Marketing Technology',
@@ -156,12 +175,19 @@ export const projects: Project[] = [
             'Zod-validated typed contracts between the AI layer and the rest of the application, preventing a class of runtime integration errors.',
             'Retrieval grounded in structured historical engagement data rather than vector search, since the grounding data is naturally structured.',
         ],
+        tags: ['ai'],
+        stats: [
+            { value: '3', label: 'single-purpose AI agents' },
+            { value: '2', label: 'outreach channels: email and LinkedIn' },
+        ],
+        aiApproach:
+            'Three single-purpose agents instead of one monolithic prompt, so sender selection, context retrieval and composition can each be iterated and evaluated on their own. Retrieval uses structured queries rather than vector search because the grounding data is structured, and a sample of generated messages is reviewed by a person before every campaign launch.',
         priority: 2,
         hasPreview: false,
     },
     {
         slug: 'dermava-health',
-        image: '/images/projects/dermava-health.png',
+        image: '/images/projects/dermava-health.webp',
         title: 'Dermava Health',
         description: 'A CMS-driven healthcare web platform for a multi-brand, multi-location dermatology provider network — plus an independent engineering audit and strategic technology roadmap authored end to end.',
         domain: 'Healthcare (patient engagement / provider content platform)',
@@ -189,12 +215,20 @@ export const projects: Project[] = [
             'Appointment scheduling via an externally embedded scheduler — an audited gap, not owned end-to-end by this platform.',
             'A validated (not just installed) GenAI foundation: a working proof-of-concept semantic-search test over real sample content, positioned for future expansion.',
         ],
+        tags: ['ai', 'regulated'],
+        stats: [
+            { value: '~50', label: 'sample pages embedded in the semantic-search proof of concept' },
+            { value: '6–9 mo', label: 'estimated to a usable AI v1' },
+            { value: '12–18 mo', label: 'estimated for the full roadmap' },
+        ],
+        aiApproach:
+            'AI was validated, not shipped. A semantic-search proof of concept over real sample content tested feasibility, and the audit recommended a phased roadmap instead of overselling a vendor prototype as production-ready. No conversational assistant went live, and that was a deliberate scoping decision.',
         priority: 3,
         hasPreview: false,
     },
     {
         slug: 'themis',
-        image: '/images/projects/themis.png',
+        image: '/images/projects/themis.webp',
         title: 'Themis',
         description: 'A RegTech platform supporting AML compliance operations, ESG risk analysis, and financial-crime intelligence through onboarding, monitoring, and compliance workflow modules.',
         domain: 'RegTech / Financial Crime & AML Compliance',
@@ -220,13 +254,18 @@ export const projects: Project[] = [
             'SQL Server (stored procedures, analytical views, aggregation queries) with Redis caching for dashboard-oriented workflows.',
             'Azure App Services, SQL Database, Redis Cache, Application Insights, Log Analytics, DevOps CI/CD.',
         ],
+        tags: ['regulated'],
+        stats: [
+            { value: '<1 day', label: 'to build a form, down from about 3 days' },
+            { value: '3', label: 'workflow modules: onboarding, monitoring, compliance' },
+        ],
         priority: 4,
         hasPreview: false,
     },
     // --- DevCrew.io ---
     {
         slug: 'goodzilla',
-        image: '/images/projects/goodzilla.png',
+        image: '/images/projects/goodzilla.webp',
         title: 'Goodzilla',
         description: 'A multi-tenant, microservices-based Shopify donation-commerce SaaS platform letting merchants embed charitable-giving campaigns into checkout workflows.',
         domain: 'Commerce/Payments SaaS (donation-commerce for Shopify merchants)',
@@ -259,7 +298,7 @@ export const projects: Project[] = [
     },
     {
         slug: 'peasy',
-        image: '/images/projects/peasy.png',
+        image: '/images/projects/peasy.webp',
         title: 'Peasy',
         description: 'A Shopify-integrated creator-commerce SaaS platform enabling influencer attribution, automated commission management, payout orchestration, and reconciliation across merchant campaigns.',
         domain: 'Creator Commerce (B2B SaaS for merchants and creators)',
@@ -290,7 +329,7 @@ export const projects: Project[] = [
     },
     {
         slug: 'staffy',
-        image: '/images/projects/staffy.png',
+        image: '/images/projects/staffy.webp',
         title: 'Staffy',
         description: 'A healthcare staffing marketplace matching scheduling and shift work between healthcare facilities and staff, across web and mobile.',
         domain: 'Healthcare (B2C workforce marketplace)',
@@ -313,12 +352,13 @@ export const projects: Project[] = [
             'Angular/NgRx frontend using a hybrid global/feature-slice state architecture.',
             'Ionic hybrid-mobile layer for cross-platform delivery.',
         ],
+        tags: ['regulated'],
         priority: 7,
         hasPreview: false,
     },
     {
         slug: 'dentalloop',
-        image: '/images/projects/dentalloop.png',
+        image: '/images/projects/dentalloop.webp',
         title: 'DentalLoop',
         description: 'A real-time dental telehealth and care-communication platform enabling remote dentist–patient video consultations alongside appointment and multi-location clinic workflows.',
         domain: 'Healthcare (B2C telehealth / care communication)',
@@ -342,12 +382,13 @@ export const projects: Project[] = [
             'Node.js/Express REST backend, Angular frontend, MySQL relational store.',
             'RBAC/JWT auth, geospatial clinic search via Google Location API.',
         ],
+        tags: ['regulated'],
         priority: 8,
         hasPreview: false,
     },
     {
         slug: 'fluidme',
-        image: '/images/projects/fluidme.png',
+        image: '/images/projects/fluidme.webp',
         title: 'FluidMe',
         description: 'An Angular-based marketplace operations dashboard for vendor, product, and order workflow management on a multi-tenant commerce platform.',
         domain: 'B2B SaaS / Commerce Operations (Marketplace)',
@@ -375,7 +416,7 @@ export const projects: Project[] = [
     },
     {
         slug: 'onlinedoc',
-        image: '/images/projects/onlinedoc.png',
+        image: '/images/projects/onlinedoc.webp',
         title: 'OnlineDoc',
         description: 'A healthcare collaboration SaaS platform for doctor communities, built around activity feeds, group workflows, and notification-driven engagement.',
         domain: 'Healthcare (B2B SaaS collaboration)',
@@ -395,12 +436,13 @@ export const projects: Project[] = [
             'Legacy Angular SPA integrated with a PHP REST API backend.',
             'RxJS-driven real-time notification/state-sync layer with defensive response-normalization for an inconsistent legacy API.',
         ],
+        tags: ['regulated'],
         priority: 10,
         hasPreview: false,
     },
     {
         slug: 'ancera',
-        image: '/images/projects/ancera.png',
+        image: '/images/projects/ancera.webp',
         title: 'Ancera',
         description: 'An enterprise analytics and operational-intelligence dashboard for poultry operations, visualizing KPIs and production trends.',
         domain: 'AgriTech (B2B enterprise analytics)',
@@ -425,7 +467,7 @@ export const projects: Project[] = [
     // --- eBryx ---
     {
         slug: 'titans',
-        image: '/images/projects/titans.png',
+        image: '/images/projects/titans.webp',
         title: 'Titans',
         description: 'A B2B multi-tenant cybersecurity monitoring platform enabling security analysts to investigate logs and run real-time search across operational and security events, deployed on private VPS infrastructure.',
         domain: 'Cybersecurity (B2B multi-tenant security analytics, on-premise deployment)',
@@ -450,13 +492,14 @@ export const projects: Project[] = [
             'Multi-tenant B2B backend (NestJS) with Kafka event streaming, Elasticsearch search/aggregation, Redis caching, MySQL relational data.',
             'Keycloak-based tenant-isolated RBAC, ELK Stack observability, deployed on Docker-containerized private VPS infrastructure.',
         ],
+        tags: ['multi-tenant'],
         priority: 12,
         hasPreview: false,
     },
     // --- Nextbridge ---
     {
         slug: 'talentforge',
-        image: '/images/projects/talentforge.png',
+        image: '/images/projects/talentforge.webp',
         title: 'TalentForge',
         description: 'An enterprise Learning Management System supporting employee onboarding, internal training, and workforce upskilling for B2B customers.',
         domain: 'B2B SaaS / HRTech (Enterprise LMS)',

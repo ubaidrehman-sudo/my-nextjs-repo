@@ -1,5 +1,14 @@
 // Core data types for the portfolio
 
+/** Facets used by the /projects filter chips */
+export type ProjectTag = 'ai' | 'multi-tenant' | 'regulated';
+
+/** One headline number on a case-study page. Only real, sourced figures. */
+export interface ProjectStat {
+    value: string;
+    label: string;
+}
+
 export interface Project {
     slug: string;
     title: string;
@@ -19,6 +28,12 @@ export interface Project {
     highlights?: string[];
     outcome?: string;
     architecture?: string[];
+    /** Filter-chip facets on /projects */
+    tags?: ProjectTag[];
+    /** Up to 3 headline numbers shown as tiles under the cover image */
+    stats?: ProjectStat[];
+    /** What the AI does in this system, and where it deliberately does not */
+    aiApproach?: string;
     priority?: number;
     hasPreview?: boolean;
 }
@@ -108,12 +123,19 @@ export interface AboutMe {
     interests?: string[];
 }
 
-export interface SnapshotCard {
-    id: string;
-    iconKey: string;
-    label: string;
+/** One proof point in the hero stat strip */
+export interface HeroStat {
     value: string;
-    caption: string;
+    label: string;
+}
+
+/** One pillar in the home "Architecture, with AI where it counts" section */
+export interface ArchitecturePillar {
+    id: string;
+    iconKey: 'resilience' | 'ai' | 'delivery';
+    label: string;
+    title: string;
+    description: string;
 }
 
 /** Home page teaser block above snapshot cards (links to full About story) */

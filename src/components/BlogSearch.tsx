@@ -70,7 +70,8 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                 {/* Search Input */}
                 <div className="relative">
                     <input
-                        type="text"
+                        type="search"
+                        aria-label="Search blog posts"
                         placeholder="Search blogs by title, category, or tags..."
                         value={searchQuery}
                         onChange={(e) => handleSearchChange(e.target.value)}
@@ -106,7 +107,8 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                     <div className="flex flex-wrap gap-2">
                         <button
                             onClick={() => handleTagChange(null)}
-                            className={`text-sm px-4 py-2 rounded-full border transition-all duration-300 ${selectedTag === null
+                            aria-pressed={selectedTag === null}
+                            className={`text-sm px-4 min-h-11 rounded-full border transition-all duration-300 ${selectedTag === null
                                 ? 'bg-[var(--accent)] text-white border-[var(--accent)]'
                                 : 'bg-[var(--background-elevated)] text-[var(--foreground-muted)] border-[var(--border)] hover:border-[var(--border-strong)] hover:text-[var(--foreground)]'
                                 }`}
@@ -119,7 +121,8 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                                 <button
                                     key={tag}
                                     onClick={() => handleTagChange(tag)}
-                                    className={`text-sm px-4 py-2 rounded-full border transition-all duration-300 ${selectedTag === tag
+                                    aria-pressed={selectedTag === tag}
+                                    className={`text-sm px-4 min-h-11 rounded-full border transition-all duration-300 ${selectedTag === tag
                                         ? 'bg-[var(--accent)] text-white border-[var(--accent)]'
                                         : 'bg-[var(--background-elevated)] text-[var(--foreground-muted)] border-[var(--border)] hover:border-[var(--border-strong)] hover:text-[var(--foreground)]'
                                         }`}
@@ -220,7 +223,7 @@ export default function BlogSearch({ initialPosts }: BlogSearchProps) {
                                                 <button
                                                     key={page}
                                                     onClick={() => setCurrentPage(page)}
-                                                    className={`min-w-[2.25rem] h-9 px-3 rounded-xl font-medium text-sm transition-all duration-300 ${
+                                                    className={`min-w-11 h-11 px-3 rounded-xl font-medium text-sm transition-all duration-300 ${
                                                         currentPage === page
                                                             ? 'bg-[var(--accent)] text-white border border-[var(--accent)]'
                                                             : 'text-[var(--foreground)] border border-transparent hover:bg-[var(--background-soft)] hover:border-[var(--border-muted)]'

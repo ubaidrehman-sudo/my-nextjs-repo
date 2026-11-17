@@ -1,12 +1,13 @@
 import { projects } from '@/lib/data';
+import { getNextProject } from '@/lib/projects';
+import { generateSEO, generateProjectSchema } from '@/lib/seo';
+import { SITE_URL } from '@/lib/site';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import ProjectCard from '@/components/ProjectCard';
-import SectionLabel from '@/components/SectionLabel';
-import SectionHeadingWithBar from '@/components/SectionHeadingWithBar';
+import StatTiles from '@/components/StatTiles';
+import NextProjectCard from '@/components/NextProjectCard';
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -22,9 +23,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const project = projects.find((p) => p.slug === slug);
     if (!project) return {};
+    const path = `/projects/${project.slug}`;
     return {
-        title: project.title,
-        description: project.description,
+        ...generateSEO({
+            title: project.title,
+            description: project.description,
+            url: `${SITE_URL}${path}`,
+            // Use the project's cover image when it has one, else the site-wide card.
+            ...(project.image && { image: project.image }),
+        }),
+        alternates: { canonical: path },
     };
 }
 
@@ -33,17 +41,17 @@ export default async function ProjectPage({ params }: Props) {
     const project = projects.find((p) => p.slug === slug);
     if (!project) notFound();
 
-    const moreProjects = projects
-        .filter((p) => p.slug !== project.slug && p.featured)
-        .sort((a, b) => {
-            const domainScore = (p: typeof project) => p.domain === project.domain ? -1 : 1;
-            return domainScore(a) - domainScore(b) || (a.priority ?? 999) - (b.priority ?? 999);
-        })
-        .slice(0, 2);
+    const nextProject = getNextProject(project.slug);
+
+    const schema = generateProjectSchema(project);
 
     return (
         <div className="min-h-screen pb-20">
-            <div className="max-w-5xl mx-auto px-4 pt-32">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\\u003c') }}
+            />
+            <div className="max-w-5xl mx-auto px-4 pt-24 sm:pt-32">
 
                 {/* Breadcrumbs */}
                 <Breadcrumbs items={[
@@ -74,12 +82,12 @@ export default async function ProjectPage({ params }: Props) {
                     </div>
 
                     {/* Title with accent dot */}
-                    <h1 className="font-serif text-5xl md:text-7xl font-bold text-[var(--text-primary)] leading-tight mb-6">
+                    <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold text-[var(--text-primary)] leading-tight mb-6 break-words">
                         {project.title}<span className="text-[var(--accent)]">.</span>
                     </h1>
 
                     {/* Description */}
-                    <p className="text-xl md:text-2xl text-[var(--text-secondary)] leading-relaxed mb-8">
+                    <p className="text-lg sm:text-xl md:text-2xl text-[var(--text-secondary)] leading-relaxed mb-8">
                         {project.description}
                     </p>
 
@@ -130,12 +138,15 @@ export default async function ProjectPage({ params }: Props) {
                     </div>
                 )}
 
+                {/* Headline numbers (only real, sourced figures) */}
+                {project.stats && project.stats.length > 0 && <StatTiles stats={project.stats} />}
+
                 {/* Content stack */}
-                <div className="space-y-10 mb-24">
+                <div className="space-y-8 sm:space-y-10 mb-12 sm:mb-24">
 
                     {/* Project Statement */}
                     {project.longDescription && (
-                        <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-8">
+                        <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-5 sm:p-8">
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]">
                                     <svg className="w-4 h-4 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,7 +164,7 @@ export default async function ProjectPage({ params }: Props) {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fade-in-up">
                             {/* Key Highlights */}
                             {project.highlights && project.highlights.length > 0 && (
-                                <div className="lg:col-span-7 bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-8">
+                                <div className="lg:col-span-7 bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-5 sm:p-8">
                                     <div className="flex items-center gap-3 mb-6">
                                         <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]">
                                             <svg className="w-4 h-4 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,9 +220,24 @@ export default async function ProjectPage({ params }: Props) {
                         </div>
                     )}
 
+                    {/* AI approach: what the AI does here, and where it deliberately does not */}
+                    {project.aiApproach && (
+                        <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] border-l-4 border-l-[var(--accent)] rounded-2xl shadow-[var(--shadow-surface)] p-5 sm:p-8">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]">
+                                    <svg className="w-4 h-4 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 7h10v10H7V7z" />
+                                    </svg>
+                                </div>
+                                <h2 className="text-lg font-bold text-[var(--text-primary)]">AI Approach</h2>
+                            </div>
+                            <p className="text-[var(--text-secondary)] leading-relaxed text-base sm:text-lg">{project.aiApproach}</p>
+                        </div>
+                    )}
+
                     {/* My Contribution */}
                     {project.contributions && project.contributions.length > 0 && (
-                        <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-8">
+                        <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-5 sm:p-8">
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]">
                                     <svg className="w-4 h-4 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -233,7 +259,7 @@ export default async function ProjectPage({ params }: Props) {
 
                     {/* Architectural Decisions */}
                     {project.architecture && project.architecture.length > 0 && (
-                        <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-8">
+                        <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-5 sm:p-8">
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]">
                                     <svg className="w-4 h-4 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,7 +280,7 @@ export default async function ProjectPage({ params }: Props) {
                     )}
 
                     {/* Tech Stack */}
-                    <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-8">
+                    <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-5 sm:p-8">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]">
                                 <svg className="w-4 h-4 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -274,7 +300,7 @@ export default async function ProjectPage({ params }: Props) {
 
                     {/* Tools */}
                     {project.tools && project.tools.length > 0 && (
-                        <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-8">
+                        <div className="animate-fade-in-up bg-[var(--bg-section)] border border-[var(--border-muted)] rounded-2xl shadow-[var(--shadow-surface)] p-5 sm:p-8">
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]">
                                     <svg className="w-4 h-4 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -295,42 +321,8 @@ export default async function ProjectPage({ params }: Props) {
                     )}
                 </div>
 
-                {/* More Projects rail */}
-                {moreProjects.length > 0 && (
-                    <div className="border-t border-[var(--border-strong)] mt-24 pt-16">
-                        <div className="flex items-end justify-between mb-10">
-                            <div>
-                                <SectionLabel text="Continue Exploring" />
-                                <SectionHeadingWithBar title="More Projects" />
-                            </div>
-                            <Link
-                                href="/projects"
-                                className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline underline-offset-2 transition-colors items-center gap-1.5 hidden md:inline-flex focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 rounded"
-                            >
-                                View all
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </Link>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {moreProjects.map((p) => (
-                                <ProjectCard key={p.slug} project={p} variant="compact" />
-                            ))}
-                        </div>
-                        <div className="mt-8 md:hidden">
-                            <Link
-                                href="/projects"
-                                className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline underline-offset-2 transition-colors flex items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 rounded"
-                            >
-                                View all projects
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </Link>
-                        </div>
-                    </div>
-                )}
+                {/* Next case study */}
+                {nextProject && <NextProjectCard project={nextProject} />}
             </div>
         </div>
     );

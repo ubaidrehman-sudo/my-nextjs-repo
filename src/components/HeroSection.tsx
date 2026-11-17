@@ -1,17 +1,18 @@
 'use client';
 
-import { AboutMe } from '@/lib/types';
+import { AboutMe, HeroStat } from '@/lib/types';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 interface HeroSectionProps {
     aboutMe: AboutMe;
+    stats?: HeroStat[];
 }
 
-export default function HeroSection({ aboutMe }: HeroSectionProps) {
+export default function HeroSection({ aboutMe, stats }: Readonly<HeroSectionProps>) {
 
     return (
-        <section className="min-h-screen flex items-center pt-20 pb-4 overflow-hidden bg-[var(--bg-section-muted)]">
+        <section className="min-h-dvh flex items-center pt-28 sm:pt-32 pb-12 overflow-hidden bg-[var(--bg-section-muted)]">
             <div className="max-w-7xl mx-auto px-4 w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] items-center gap-8 lg:gap-14">
 
@@ -43,7 +44,7 @@ export default function HeroSection({ aboutMe }: HeroSectionProps) {
                             </h1>
                         ) : (
                             <h1
-                                className="font-sans font-extrabold text-[var(--foreground)] tracking-tight leading-none whitespace-nowrap"
+                                className="font-sans font-extrabold text-[var(--foreground)] tracking-tight leading-none break-words"
                                 style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)', letterSpacing: '-0.03em' }}
                             >
                                 {aboutMe.name}
@@ -91,6 +92,26 @@ export default function HeroSection({ aboutMe }: HeroSectionProps) {
                             </a>
                         </div>
 
+                        {stats && stats.length > 0 && (
+                            <dl className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 w-full max-w-xl">
+                                {stats.map((stat) => (
+                                    <div
+                                        key={stat.label}
+                                        className="rounded-xl border border-[var(--border-muted)] bg-[var(--background-elevated)] px-3 py-3 text-center lg:text-left"
+                                        style={{ boxShadow: 'var(--shadow-surface)' }}
+                                    >
+                                        <dt className="sr-only">{stat.label}</dt>
+                                        <dd className="text-base sm:text-lg font-bold text-[var(--text-primary)] leading-tight">
+                                            {stat.value}
+                                        </dd>
+                                        <dd className="text-xs text-[var(--text-secondary)] leading-snug mt-1" aria-hidden>
+                                            {stat.label}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        )}
+
                     </motion.div>
 
                     {/* ── Right column: image ── */}
@@ -100,7 +121,7 @@ export default function HeroSection({ aboutMe }: HeroSectionProps) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                     >
-                        <div className="relative w-72 h-80 md:w-[340px] md:h-[400px] group">
+                        <div className="relative w-64 h-72 sm:w-72 sm:h-80 md:w-[340px] md:h-[400px] group">
                             <div
                                 className="absolute inset-0 rounded-2xl overflow-hidden border border-[var(--border-muted)] transition-all duration-300 group-hover:border-[var(--border-strong)]"
                                 style={{
