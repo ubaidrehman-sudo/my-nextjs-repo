@@ -19,6 +19,8 @@ export interface Project {
     technologies: string[];
     tools?: string[];
     link?: string;
+    /** Button text for `link`; defaults to "View Live Site". Use it when the link is the client's product site, not a demo. */
+    linkLabel?: string;
     github?: string;
     image?: string;
     featured: boolean;

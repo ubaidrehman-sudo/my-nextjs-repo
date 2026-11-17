@@ -102,8 +102,8 @@ export default function ProjectCard({ project, variant = 'default', headingLevel
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="min-w-11 min-h-11 inline-flex items-center justify-center rounded-lg border border-[var(--border-muted)] bg-[var(--bg-section)] text-[var(--text-secondary)] hover:border-[var(--accent)] hover:text-[var(--foreground)] transition-base"
-                                    title="View Live Site"
-                                    aria-label={`View ${project.title} live site (opens in a new tab)`}
+                                    title={project.linkLabel ?? 'View Live Site'}
+                                    aria-label={`${project.linkLabel ?? 'View live site'}: ${project.title} (opens in a new tab)`}
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

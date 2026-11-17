@@ -25,7 +25,7 @@ export const aboutMe: AboutMe = {
         'What actually frustrates me is systems built on unrecorded, inconsistent assumptions — decisions made once and never written down, never followed consistently elsewhere in the codebase. The flip side is what I actually value: standards and patterns should be followed, and documented. That\'s the same discipline behind ClearEdgeIQ\'s architecture decision log and its documentation-hygiene passes — not a value I hold in theory, but one that shows up directly in how I build.',
         'I\'m drawn to what\'s underneath the interface — how a system actually behaves under real stress and real use, not just how it looks. UI is visible and easy to admire; the harder, more interesting problem is what happens when things are pushed.',
     ],
-    workStyle: 'Based in Pakistan, working remotely with clients across Pakistan, the UAE, KSA, and remote-global. Comfortable owning a system end-to-end across time zones — from pre-sales conversation through architecture to production.',
+    workStyle: 'Based in Pakistan, working remotely with clients across Pakistan, the UAE, KSA, Denmark, the USA, Canada, and remote-global. Confident working across various time zones, and comfortable owning a system end-to-end — from pre-sales conversation through architecture to production.',
     values: [
         'Failure-resilient systems',
         'Human-centric, easy-to-navigate design',
@@ -81,7 +81,7 @@ export const architecturePillars: ArchitecturePillar[] = [
         label: 'Regulated domains',
         title: 'From pre-sales to production',
         description:
-            'Owned end to end across LegalTech, RegTech, HealthTech, AgriTech, and cybersecurity — from the pre-sales conversation through architecture to production, for clients across Pakistan, the UAE, and KSA.',
+            'Owned end to end across LegalTech, RegTech, HealthTech, AgriTech, and cybersecurity — from the pre-sales conversation through architecture to production. Confident working across time zones, with clients in Pakistan, the UAE, KSA, Denmark, the USA, and Canada.',
     },
 ];
 
@@ -97,6 +97,8 @@ export const projects: Project[] = [
         year: 2026,
         technologies: ['TypeScript', 'NestJS', 'PostgreSQL', 'Redis', 'AWS Bedrock', 'AWS Cognito', 'AWS S3', 'AWS Secrets Manager', 'Docker', 'GitHub Actions'],
         tools: ['Jenkins', 'SonarQube', 'Jest', 'Swagger'],
+        link: 'https://clearedgeiq.com',
+        linkLabel: 'Visit Product Site',
         featured: true,
         problemStatement: 'ClearEdge Enterprises LLC needed to replace manual, unstructured contract review and RFP/RFQ drafting with a governed, multi-tenant platform — one where AI-generated content is auditable and reviewed by humans rather than auto-trusted. Delivered under a committed 12-week build plus 45-day hypercare.',
         longDescription: 'Engaged as Solution Architect for design and build, I designed the ports-and-adapters module-boundary convention, the PostgreSQL Row-Level Security tenant-isolation model, and the hybrid RAG retrieval pipeline. I personally authored roughly 92% of all commits (220 of 239) across a 12–13 week window, from kickoff on 2026-06-16 through steady-state production on 2026-09-08. Every module\'s status is tracked, every architectural decision is logged with sign-off, and every deliberate exception to a standing convention is written down rather than left as silent inconsistency.',
@@ -235,6 +237,8 @@ export const projects: Project[] = [
         role: 'Solution Architect',
         year: 2024,
         technologies: ['Angular', 'RxJS', 'PrimeNG', '.NET', 'SQL Server', 'Redis'],
+        link: 'https://www.wearethemis.com',
+        linkLabel: 'Visit Product Site',
         featured: true,
         problemStatement: 'Regulatory operations teams needed configurable, auditable workflows — onboarding, SAR reporting, investigation, risk scoring — that could evolve quickly with changing regulatory requirements, without constant hardcoded frontend changes.',
         longDescription: 'Engineered onboarding, monitoring, and compliance workflow modules, translating Figma designs into production-ready Angular components, and built reusable schema-driven form systems using Angular Formly.',
@@ -336,6 +340,8 @@ export const projects: Project[] = [
         role: 'Frontend Engineer',
         year: 2022,
         technologies: ['Angular', 'RxJS', 'Ionic', 'Node.js', 'MongoDB'],
+        link: 'https://staffy.com',
+        linkLabel: 'Visit Product Site',
         featured: false,
         problemStatement: 'Needed a scheduling/workforce-matching experience that stayed consistent across async API calls and reactive state, on both web and mobile, without state going stale or triggering duplicate requests.',
         longDescription: 'Developed scheduling and workforce-matching frontend modules using Angular, NgRx, RxJS, and Ionic, implementing a hybrid global/feature-based NgRx store architecture.',
@@ -423,6 +429,8 @@ export const projects: Project[] = [
         role: 'Frontend Engineer',
         year: 2021,
         technologies: ['Angular', 'RxJS'],
+        link: 'https://onlinedoc.dk',
+        linkLabel: 'Visit Product Site',
         featured: false,
         longDescription: 'Built and maintained Angular dashboard modules for activity feeds, group workflows, and notification-driven interactions, with real-time notification handling via RxJS observables.',
         contributions: [
@@ -450,6 +458,8 @@ export const projects: Project[] = [
         year: 2021,
         technologies: ['Angular', 'RxJS', '.NET'],
         tools: ['Highcharts', 'Chart.js'],
+        link: 'https://www.ancera.com',
+        linkLabel: 'Visit Product Site',
         featured: false,
         longDescription: 'Engineered enterprise analytics dashboards and reporting workflows supporting KPI monitoring, production analytics, drill-down reporting, and trend visualization.',
         contributions: [
@@ -668,7 +678,7 @@ export const contactFAQ: ContactFAQ[] = [
     {
         id: '2',
         question: 'Do you work across time zones?',
-        answer: 'Yes — based in Pakistan, working remotely with clients across Pakistan, the UAE, KSA, and remote-global.',
+        answer: 'Yes, and I\'m confident doing it. Based in Pakistan, I work remotely with clients across Pakistan, the UAE, KSA, Denmark, the USA, Canada, and remote-global, in various time zones.',
     },
     {
         id: '3',
